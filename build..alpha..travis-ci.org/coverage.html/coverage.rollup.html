@@ -1,0 +1,4732 @@
+<div class="coverageReportDiv">
+<h1>coverage-report</h1>
+<div style="background: #fff; border: 1px solid #000; margin 0; padding: 0;">
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for All files</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-express-restify-mongoose">npmtest-express-restify-mongoose (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">All files</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">57.29% <small>(169 / 295)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">49.4% <small>(124 / 251)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">65.85% <small>(27 / 41)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">57.29% <small>(169 / 295)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric">26 statements, 1 function, 30 branches</span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"></div>
+</div>
+<div class="body">
+<div class="coverage-summary">
+<table>
+<thead>
+<tr>
+   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
+   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
+   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
+   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
+   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
+   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
+   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
+</tr>
+</thead>
+<tbody><tr>
+	<td class="file high" data-value="node-npmtest-express-restify-mongoose/"><a href="node-npmtest-express-restify-mongoose/index.html">node-npmtest-express-restify-mongoose/</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="151" class="abs high">(151&nbsp;/&nbsp;151)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="124" class="abs high">(124&nbsp;/&nbsp;124)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="27" class="abs high">(27&nbsp;/&nbsp;27)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="151" class="abs high">(151&nbsp;/&nbsp;151)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/"><a href="node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/index.html">node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/</a></td>
+	<td data-value="12.5" class="pic low"><span class="cover-fill" style="width: 12px;"></span><span class="cover-empty" style="width:88px;"></span></td>
+	<td data-value="12.5" class="pct low">12.5%</td>
+	<td data-value="144" class="abs low">(18&nbsp;/&nbsp;144)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="127" class="abs low">(0&nbsp;/&nbsp;127)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="14" class="abs low">(0&nbsp;/&nbsp;14)</td>
+	<td data-value="12.5" class="pct low">12.5%</td>
+	<td data-value="144" class="abs low">(18&nbsp;/&nbsp;144)</td>
+	</tr>
+
+</tbody>
+</table>
+</div></div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 22:13:52 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-express-restify-mongoose/</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-express-restify-mongoose">npmtest-express-restify-mongoose (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-express-restify-mongoose/</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">100% <small>(151 / 151)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">100% <small>(124 / 124)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">100% <small>(27 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">100% <small>(151 / 151)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric">26 statements, 1 function, 30 branches</span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; node-npmtest-express-restify-mongoose/</div>
+</div>
+<div class="body">
+<div class="coverage-summary">
+<table>
+<thead>
+<tr>
+   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
+   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
+   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
+   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
+   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
+   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
+   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
+</tr>
+</thead>
+<tbody><tr>
+	<td class="file high" data-value="example.js"><a href="example.js.html">example.js</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="83" class="abs high">(83&nbsp;/&nbsp;83)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="73" class="abs high">(73&nbsp;/&nbsp;73)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="12" class="abs high">(12&nbsp;/&nbsp;12)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="83" class="abs high">(83&nbsp;/&nbsp;83)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="lib.npmtest_express_restify_mongoose.js"><a href="lib.npmtest_express_restify_mongoose.js.html">lib.npmtest_express_restify_mongoose.js</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="16" class="abs high">(16&nbsp;/&nbsp;16)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="14" class="abs high">(14&nbsp;/&nbsp;14)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="3" class="abs high">(3&nbsp;/&nbsp;3)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="16" class="abs high">(16&nbsp;/&nbsp;16)</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="test.js"><a href="test.js.html">test.js</a></td>
+	<td data-value="100" class="pic high"><span class="cover-fill cover-full" style="width: 100px;"></span><span class="cover-empty" style="width:0px;"></span></td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="52" class="abs high">(52&nbsp;/&nbsp;52)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="37" class="abs high">(37&nbsp;/&nbsp;37)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="12" class="abs high">(12&nbsp;/&nbsp;12)</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="52" class="abs high">(52&nbsp;/&nbsp;52)</td>
+	</tr>
+
+</tbody>
+</table>
+</div></div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 22:13:52 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-express-restify-mongoose/example.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-express-restify-mongoose">npmtest-express-restify-mongoose (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-express-restify-mongoose/example.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">100% <small>(83 / 83)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">100% <small>(73 / 73)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">100% <small>(12 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">100% <small>(83 / 83)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric">26 statements, 1 function, 30 branches</span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">node-npmtest-express-restify-mongoose/</a> &#187; example.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+example.js
+&nbsp;
+quickstart example
+&nbsp;
+instruction
+    1. save this script as example.js
+    2. run the shell command:
+        $ npm install npmtest-express-restify-mongoose &amp;&amp; PORT=8081 node example.js
+    3. play with the browser-demo on http://127.0.0.1:8081
+*/
+&nbsp;
+&nbsp;
+&nbsp;
+/* istanbul instrument in package npmtest_express_restify_mongoose */
+/*jslint
+    bitwise: true,
+    browser: true,
+    maxerr: 8,
+    maxlen: 96,
+    node: true,
+    nomen: true,
+    regexp: true,
+    stupid: true
+*/
+(function () {
+    'use strict';
+    var local;
+&nbsp;
+&nbsp;
+&nbsp;
+    // run shared js-env code - pre-init
+    (function () {
+        // init local
+        local = {};
+        // init modeJs
+        local.modeJs = (function () {
+            try {
+                return typeof navigator.userAgent === 'string' &amp;&amp;
+                    typeof document.querySelector('body') === 'object' &amp;&amp;
+                    typeof XMLHttpRequest.prototype.open === 'function' &amp;&amp;
+                    'browser';
+            } catch (errorCaughtBrowser) {
+                return module.exports &amp;&amp;
+                    typeof process.versions.node === 'string' &amp;&amp;
+                    typeof require('http').createServer === 'function' &amp;&amp;
+                    'node';
+            }
+        }());
+        // init global
+        local.global = local.modeJs === 'browser'
+            ? window
+            : global;
+        // init utility2_rollup
+        local = local.global.utility2_rollup || (local.modeJs === 'browser'
+            ? local.global.utility2_npmtest_express_restify_mongoose
+            : global.utility2_moduleExports);
+        // export local
+        local.global.local = local;
+    }());
+    switch (local.modeJs) {
+&nbsp;
+&nbsp;
+&nbsp;
+    // post-init
+    // run browser js-env code - post-init
+    /* istanbul ignore next */
+    case 'browser':
+        local.testRunBrowser = function (event) {
+            <span class="skip-if-branch" title="else path not taken" >E</span>if (!event || (event &amp;&amp;
+                    event.currentTarget &amp;&amp;
+                    event.currentTarget.className &amp;&amp;
+                    event.currentTarget.className.includes &amp;&amp;
+                    event.currentTarget.className.includes('onreset'))) {
+                // reset output
+                Array.from(
+                    document.querySelectorAll('body &gt; .resettable')
+                ).forEach(function (element) {
+                    switch (element.tagName) {
+<span class="branch-0 cbranch-skip" title="branch not covered" >                    case 'INPUT':</span>
+                    case 'TEXTAREA':
+                        element.value = '';
+                        break;
+<span class="branch-2 cbranch-skip" title="branch not covered" >                    default:</span>
+<span class="cstat-skip" title="statement not covered" >                        element.textContent = '';</span>
+                    }
+                });
+            }
+            switch (event &amp;&amp; event.currentTarget &amp;&amp; event.currentTarget.id) {
+            case 'testRunButton1':
+                // show tests
+                <span class="skip-if-branch" title="else path not taken" >E</span>if (document.querySelector('#testReportDiv1').style.display === 'none') {
+                    document.querySelector('#testReportDiv1').style.display = 'block';
+                    document.querySelector('#testRunButton1').textContent =
+                        'hide internal test';
+                    local.modeTest = true;
+                    local.testRunDefault(local);
+                // hide tests
+                } else {
+<span class="cstat-skip" title="statement not covered" >                    document.querySelector('#testReportDiv1').style.display = 'none';</span>
+<span class="cstat-skip" title="statement not covered" >                    document.querySelector('#testRunButton1').textContent = 'run internal test';</span>
+                }
+                break;
+            // custom-case
+            default:
+                break;
+            }
+            <span class="skip-if-branch" title="if path not taken" >I</span>if (document.querySelector('#inputTextareaEval1') &amp;&amp; (<span class="branch-1 cbranch-skip" title="branch not covered" >!event </span>|| (<span class="branch-2 cbranch-skip" title="branch not covered" >event </span>&amp;&amp;
+<span class="branch-3 cbranch-skip" title="branch not covered" >                    event.currentTarget </span>&amp;&amp;
+<span class="branch-4 cbranch-skip" title="branch not covered" >                    event.currentTarget.className </span>&amp;&amp;
+<span class="branch-5 cbranch-skip" title="branch not covered" >                    event.currentTarget.className.includes </span>&amp;&amp;
+<span class="branch-6 cbranch-skip" title="branch not covered" >                    event.currentTarget.className.includes('oneval'))</span>)) {
+                // try to eval input-code
+<span class="cstat-skip" title="statement not covered" >                try {</span>
+                    /*jslint evil: true*/
+<span class="cstat-skip" title="statement not covered" >                    eval(document.querySelector('#inputTextareaEval1').value);</span>
+                } catch (errorCaught) {
+<span class="cstat-skip" title="statement not covered" >                    console.error(errorCaught.stack);</span>
+                }
+            }
+        };
+        // log stderr and stdout to #outputTextareaStdout1
+        ['error', 'log'].forEach(function (key) {
+            console[key + '_original'] = console[key];
+            console[key] = function () {
+                var element;
+                console[key + '_original'].apply(console, arguments);
+                element = document.querySelector('#outputTextareaStdout1');
+                <span class="skip-if-branch" title="if path not taken" >I</span>if (!element) {
+<span class="cstat-skip" title="statement not covered" >                    return;</span>
+                }
+                // append text to #outputTextareaStdout1
+                element.value += Array.from(arguments).map(function (arg) {
+                    return typeof arg === 'string'
+                        ? arg
+                        : <span class="branch-1 cbranch-skip" title="branch not covered" >JSON.stringify(arg, null, 4);</span>
+                }).join(' ') + '\n';
+                // scroll textarea to bottom
+                element.scrollTop = element.scrollHeight;
+            };
+        });
+        // init event-handling
+        ['change', 'click', 'keyup'].forEach(function (event) {
+            Array.from(document.querySelectorAll('.on' + event)).forEach(function (element) {
+                element.addEventListener(event, local.testRunBrowser);
+            });
+        });
+        // run tests
+        local.testRunBrowser();
+        break;
+&nbsp;
+&nbsp;
+&nbsp;
+    // run node js-env code - post-init
+    /* istanbul ignore next */
+    case 'node':
+        // export local
+        module.exports = local;
+        // require modules
+        local.fs = require('fs');
+        local.http = require('http');
+        local.url = require('url');
+        // init assets
+        local.assetsDict = local.assetsDict || {};
+        /* jslint-ignore-begin */
+        local.assetsDict['/assets.index.template.html'] = '\
+&lt;!doctype html&gt;\n\
+&lt;html lang="en"&gt;\n\
+&lt;head&gt;\n\
+&lt;meta charset="UTF-8"&gt;\n\
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;\n\
+&lt;title&gt;{{env.npm_package_name}} (v{{env.npm_package_version}})&lt;/title&gt;\n\
+&lt;style&gt;\n\
+/*csslint\n\
+    box-sizing: false,\n\
+    universal-selector: false\n\
+*/\n\
+* {\n\
+    box-sizing: border-box;\n\
+}\n\
+body {\n\
+    background: #dde;\n\
+    font-family: Arial, Helvetica, sans-serif;\n\
+    margin: 2rem;\n\
+}\n\
+body &gt; * {\n\
+    margin-bottom: 1rem;\n\
+}\n\
+.utility2FooterDiv {\n\
+    margin-top: 20px;\n\
+    text-align: center;\n\
+}\n\
+&lt;/style&gt;\n\
+&lt;style&gt;\n\
+/*csslint\n\
+*/\n\
+textarea {\n\
+    font-family: monospace;\n\
+    height: 10rem;\n\
+    width: 100%;\n\
+}\n\
+textarea[readonly] {\n\
+    background: #ddd;\n\
+}\n\
+&lt;/style&gt;\n\
+&lt;/head&gt;\n\
+&lt;body&gt;\n\
+&lt;!-- utility2-comment\n\
+&lt;div id="ajaxProgressDiv1" style="background: #d00; height: 2px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 0.5s, width 1.5s; width: 25%;"&gt;&lt;/div&gt;\n\
+utility2-comment --&gt;\n\
+&lt;h1&gt;\n\
+&lt;!-- utility2-comment\n\
+    &lt;a\n\
+        {{#if env.npm_package_homepage}}\n\
+        href="{{env.npm_package_homepage}}"\n\
+        {{/if env.npm_package_homepage}}\n\
+        target="_blank"\n\
+    &gt;\n\
+utility2-comment --&gt;\n\
+        {{env.npm_package_name}} (v{{env.npm_package_version}})\n\
+&lt;!-- utility2-comment\n\
+    &lt;/a&gt;\n\
+utility2-comment --&gt;\n\
+&lt;/h1&gt;\n\
+&lt;h3&gt;{{env.npm_package_description}}&lt;/h3&gt;\n\
+&lt;!-- utility2-comment\n\
+&lt;h4&gt;&lt;a download href="assets.app.js"&gt;download standalone app&lt;/a&gt;&lt;/h4&gt;\n\
+&lt;button class="onclick onreset" id="testRunButton1"&gt;run internal test&lt;/button&gt;&lt;br&gt;\n\
+&lt;div id="testReportDiv1" style="display: none;"&gt;&lt;/div&gt;\n\
+utility2-comment --&gt;\n\
+\n\
+\n\
+\n\
+&lt;label&gt;stderr and stdout&lt;/label&gt;\n\
+&lt;textarea class="resettable" id="outputTextareaStdout1" readonly&gt;&lt;/textarea&gt;\n\
+&lt;!-- utility2-comment\n\
+{{#if isRollup}}\n\
+&lt;script src="assets.app.js"&gt;&lt;/script&gt;\n\
+{{#unless isRollup}}\n\
+utility2-comment --&gt;\n\
+&lt;script src="assets.utility2.rollup.js"&gt;&lt;/script&gt;\n\
+&lt;script src="jsonp.utility2._stateInit?callback=window.utility2._stateInit"&gt;&lt;/script&gt;\n\
+&lt;script src="assets.npmtest_express_restify_mongoose.rollup.js"&gt;&lt;/script&gt;\n\
+&lt;script src="assets.example.js"&gt;&lt;/script&gt;\n\
+&lt;script src="assets.test.js"&gt;&lt;/script&gt;\n\
+&lt;!-- utility2-comment\n\
+{{/if isRollup}}\n\
+utility2-comment --&gt;\n\
+&lt;div class="utility2FooterDiv"&gt;\n\
+    [ this app was created with\n\
+    &lt;a href="https://github.com/kaizhu256/node-utility2" target="_blank"&gt;utility2&lt;/a&gt;\n\
+    ]\n\
+&lt;/div&gt;\n\
+&lt;/body&gt;\n\
+&lt;/html&gt;\n\
+';
+        /* jslint-ignore-end */
+        <span class="skip-if-branch" title="if path not taken" >I</span>if (local.templateRender) {
+<span class="cstat-skip" title="statement not covered" >            local.assetsDict['/'] = local.templateRender(</span>
+                local.assetsDict['/assets.index.template.html'],
+                {
+                    env: local.objectSetDefault(local.env, {
+                        npm_package_description: 'the greatest app in the world!',
+                        npm_package_name: 'my-app',
+                        npm_package_nameAlias: 'my_app',
+                        npm_package_version: '0.0.1'
+                    })
+                }
+            );
+        } else {
+            local.assetsDict['/'] = local.assetsDict['/assets.index.template.html']
+                .replace((/\{\{env\.(\w+?)\}\}/g), function (match0, match1) {
+                    // jslint-hack
+                    String(match0);
+                    switch (match1) {
+                    case 'npm_package_description':
+                        return 'the greatest app in the world!';
+                    case 'npm_package_name':
+                        return 'my-app';
+<span class="branch-2 cbranch-skip" title="branch not covered" >                    case 'npm_package_nameAlias':</span>
+<span class="cstat-skip" title="statement not covered" >                        return 'my_app';</span>
+                    case 'npm_package_version':
+                        return '0.0.1';
+                    }
+                });
+        }
+        // run the cli
+        <span class="skip-if-branch" title="else path not taken" >E</span>if (local.global.utility2_rollup || module !== require.main) {
+            break;
+        }
+<span class="cstat-skip" title="statement not covered" >        local.assetsDict['/assets.example.js'] =</span>
+            local.assetsDict['/assets.example.js'] ||
+            local.fs.readFileSync(__filename, 'utf8');
+<span class="cstat-skip" title="statement not covered" >        local.assetsDict['/assets.npmtest_express_restify_mongoose.rollup.js'] =</span>
+            local.assetsDict['/assets.npmtest_express_restify_mongoose.rollup.js'] ||
+            local.fs.readFileSync(
+                // buildCustomOrg-hack
+                local.npmtest_express_restify_mongoose.__dirname +
+                    '/lib.npmtest_express_restify_mongoose.js',
+                'utf8'
+            ).replace((/^#!/), '//');
+<span class="cstat-skip" title="statement not covered" >        local.assetsDict['/favicon.ico'] = local.assetsDict['/favicon.ico'] || '';</span>
+        // if $npm_config_timeout_exit exists,
+        // then exit this process after $npm_config_timeout_exit ms
+<span class="cstat-skip" title="statement not covered" >        if (Number(process.env.npm_config_timeout_exit)) {</span>
+<span class="cstat-skip" title="statement not covered" >            setTimeout(process.exit, Number(process.env.npm_config_timeout_exit));</span>
+        }
+        // start server
+<span class="cstat-skip" title="statement not covered" >        if (local.global.utility2_serverHttp1) {</span>
+<span class="cstat-skip" title="statement not covered" >            break;</span>
+        }
+<span class="cstat-skip" title="statement not covered" >        process.env.PORT = process.env.PORT || '8081';</span>
+<span class="cstat-skip" title="statement not covered" >        console.error('server starting on port ' + process.env.PORT);</span>
+<span class="cstat-skip" title="statement not covered" >        local.http.createServer(<span class="fstat-skip" title="function not covered" >function (request, response) {</span></span>
+<span class="cstat-skip" title="statement not covered" >            request.urlParsed = local.url.parse(request.url);</span>
+<span class="cstat-skip" title="statement not covered" >            if (local.assetsDict[request.urlParsed.pathname] !== undefined) {</span>
+<span class="cstat-skip" title="statement not covered" >                response.end(local.assetsDict[request.urlParsed.pathname]);</span>
+<span class="cstat-skip" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-skip" title="statement not covered" >            response.statusCode = 404;</span>
+<span class="cstat-skip" title="statement not covered" >            response.end();</span>
+        }).listen(process.env.PORT);
+<span class="cstat-skip" title="statement not covered" >        break;</span>
+    }
+}());
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 22:13:52 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-express-restify-mongoose/lib.npmtest_express_restify_mongoose.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-express-restify-mongoose">npmtest-express-restify-mongoose (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-express-restify-mongoose/lib.npmtest_express_restify_mongoose.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">100% <small>(16 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">100% <small>(14 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">100% <small>(3 / 3)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">100% <small>(16 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">node-npmtest-express-restify-mongoose/</a> &#187; lib.npmtest_express_restify_mongoose.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* istanbul instrument in package npmtest_express_restify_mongoose */
+/*jslint
+    bitwise: true,
+    browser: true,
+    maxerr: 8,
+    maxlen: 96,
+    node: true,
+    nomen: true,
+    regexp: true,
+    stupid: true
+*/
+(function () {
+    'use strict';
+    var local;
+&nbsp;
+&nbsp;
+&nbsp;
+    // run shared js-env code - pre-init
+    (function () {
+        // init local
+        local = {};
+        // init modeJs
+        local.modeJs = (function () {
+            try {
+                return typeof navigator.userAgent === 'string' &amp;&amp;
+                    typeof document.querySelector('body') === 'object' &amp;&amp;
+                    typeof XMLHttpRequest.prototype.open === 'function' &amp;&amp;
+                    'browser';
+            } catch (errorCaughtBrowser) {
+                return module.exports &amp;&amp;
+                    typeof process.versions.node === 'string' &amp;&amp;
+                    typeof require('http').createServer === 'function' &amp;&amp;
+                    'node';
+            }
+        }());
+        // init global
+        local.global = local.modeJs === 'browser'
+            ? window
+            : global;
+        // init utility2_rollup
+        local = local.global.utility2_rollup || local;
+        // init lib
+        local.local = local.npmtest_express_restify_mongoose = local;
+        // init exports
+        if (local.modeJs === 'browser') {
+            local.global.utility2_npmtest_express_restify_mongoose = local;
+        } else {
+            module.exports = local;
+            module.exports.__dirname = __dirname;
+            module.exports.module = module;
+        }
+    }());
+}());
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 22:13:52 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-express-restify-mongoose/test.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-express-restify-mongoose">npmtest-express-restify-mongoose (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-express-restify-mongoose/test.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">100% <small>(52 / 52)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">100% <small>(37 / 37)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">100% <small>(12 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">100% <small>(52 / 52)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">node-npmtest-express-restify-mongoose/</a> &#187; test.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* istanbul instrument in package npmtest_express_restify_mongoose */
+/*jslint
+    bitwise: true,
+    browser: true,
+    maxerr: 8,
+    maxlen: 96,
+    node: true,
+    nomen: true,
+    regexp: true,
+    stupid: true
+*/
+(function () {
+    'use strict';
+    var local;
+&nbsp;
+&nbsp;
+&nbsp;
+    // run shared js-env code - pre-init
+    (function () {
+        // init local
+        local = {};
+        // init modeJs
+        local.modeJs = (function () {
+            try {
+                return typeof navigator.userAgent === 'string' &amp;&amp;
+                    typeof document.querySelector('body') === 'object' &amp;&amp;
+                    typeof XMLHttpRequest.prototype.open === 'function' &amp;&amp;
+                    'browser';
+            } catch (errorCaughtBrowser) {
+                return module.exports &amp;&amp;
+                    typeof process.versions.node === 'string' &amp;&amp;
+                    typeof require('http').createServer === 'function' &amp;&amp;
+                    'node';
+            }
+        }());
+        // init global
+        local.global = local.modeJs === 'browser'
+            ? window
+            : global;
+        switch (local.modeJs) {
+        // re-init local from window.local
+        case 'browser':
+            local = local.global.utility2.objectSetDefault(
+                local.global.utility2_rollup || local.global.local,
+                local.global.utility2
+            );
+            break;
+        // re-init local from example.js
+        case 'node':
+            local = (local.global.utility2_rollup || require('utility2'))
+                .requireExampleJsFromReadme();
+            break;
+        }
+        // export local
+        local.global.local = local;
+    }());
+&nbsp;
+&nbsp;
+&nbsp;
+    // run shared js-env code - function
+    (function () {
+        return;
+    }());
+    switch (local.modeJs) {
+&nbsp;
+&nbsp;
+&nbsp;
+    // run browser js-env code - function
+    case 'browser':
+        break;
+&nbsp;
+&nbsp;
+&nbsp;
+    // run node js-env code - function
+    case 'node':
+        break;
+    }
+&nbsp;
+&nbsp;
+&nbsp;
+    // run shared js-env code - post-init
+    (function () {
+        return;
+    }());
+    switch (local.modeJs) {
+&nbsp;
+&nbsp;
+&nbsp;
+    // run browser js-env code - post-init
+    case 'browser':
+        // run tests
+        local.nop(local.modeTest &amp;&amp;
+            document.querySelector('#testRunButton1') &amp;&amp;
+            document.querySelector('#testRunButton1').click());
+        break;
+&nbsp;
+&nbsp;
+&nbsp;
+    // run node js-env code - post-init
+    /* istanbul ignore next */
+    case 'node':
+        local.testCase_buildApidoc_default = local.testCase_buildApidoc_default || function (
+            options,
+            onError
+        ) {
+        /*
+         * this function will test buildApidoc's default handling-behavior-behavior
+         */
+            options = { modulePathList: module.paths };
+            local.buildApidoc(options, onError);
+        };
+&nbsp;
+        local.testCase_buildApp_default = local.testCase_buildApp_default || function (
+            options,
+            onError
+        ) {
+        /*
+         * this function will test buildApp's default handling-behavior-behavior
+         */
+            local.testCase_buildReadme_default(options, local.onErrorThrow);
+            local.testCase_buildLib_default(options, local.onErrorThrow);
+            local.testCase_buildTest_default(options, local.onErrorThrow);
+            local.testCase_buildCustomOrg_default(options, local.onErrorThrow);
+            options = [];
+            local.buildApp(options, onError);
+        };
+&nbsp;
+        local.testCase_buildCustomOrg_default = local.testCase_buildCustomOrg_default ||
+            function (options, onError) {
+            /*
+             * this function will test buildCustomOrg's default handling-behavior
+             */
+                options = {};
+                local.buildCustomOrg(options, onError);
+            };
+&nbsp;
+        local.testCase_buildLib_default = local.testCase_buildLib_default || function (
+            options,
+            onError
+        ) {
+        /*
+         * this function will test buildLib's default handling-behavior
+         */
+            options = {};
+            local.buildLib(options, onError);
+        };
+&nbsp;
+        local.testCase_buildReadme_default = local.testCase_buildReadme_default || function (
+            options,
+            onError
+        ) {
+        /*
+         * this function will test buildReadme's default handling-behavior-behavior
+         */
+            options = {};
+            local.buildReadme(options, onError);
+        };
+&nbsp;
+        local.testCase_buildTest_default = local.testCase_buildTest_default || function (
+            options,
+            onError
+        ) {
+        /*
+         * this function will test buildTest's default handling-behavior
+         */
+            options = {};
+            local.buildTest(options, onError);
+        };
+&nbsp;
+        local.testCase_webpage_default = local.testCase_webpage_default || function (
+            options,
+            onError
+        ) {
+        /*
+         * this function will test webpage's default handling-behavior
+         */
+            options = { modeCoverageMerge: true, url: local.serverLocalHost + '?modeTest=1' };
+            local.browserTest(options, onError);
+        };
+&nbsp;
+        // run test-server
+        local.testRunServer(local);
+        break;
+    }
+}());
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 22:13:52 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-express-restify-mongoose">npmtest-express-restify-mongoose (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">12.5% <small>(18 / 144)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 127)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">12.5% <small>(18 / 144)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/</div>
+</div>
+<div class="body">
+<div class="coverage-summary">
+<table>
+<thead>
+<tr>
+   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
+   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
+   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
+   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
+   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
+   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
+   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
+</tr>
+</thead>
+<tbody><tr>
+	<td class="file low" data-value="express-restify-mongoose.js"><a href="express-restify-mongoose.js.html">express-restify-mongoose.js</a></td>
+	<td data-value="9.64" class="pic low"><span class="cover-fill" style="width: 9px;"></span><span class="cover-empty" style="width:91px;"></span></td>
+	<td data-value="9.64" class="pct low">9.64%</td>
+	<td data-value="83" class="abs low">(8&nbsp;/&nbsp;83)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="72" class="abs low">(0&nbsp;/&nbsp;72)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="6" class="abs low">(0&nbsp;/&nbsp;6)</td>
+	<td data-value="9.64" class="pct low">9.64%</td>
+	<td data-value="83" class="abs low">(8&nbsp;/&nbsp;83)</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="resource_filter.js"><a href="resource_filter.js.html">resource_filter.js</a></td>
+	<td data-value="16.39" class="pic low"><span class="cover-fill" style="width: 16px;"></span><span class="cover-empty" style="width:84px;"></span></td>
+	<td data-value="16.39" class="pct low">16.39%</td>
+	<td data-value="61" class="abs low">(10&nbsp;/&nbsp;61)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="55" class="abs low">(0&nbsp;/&nbsp;55)</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="8" class="abs low">(0&nbsp;/&nbsp;8)</td>
+	<td data-value="16.39" class="pct low">16.39%</td>
+	<td data-value="61" class="abs low">(10&nbsp;/&nbsp;61)</td>
+	</tr>
+
+</tbody>
+</table>
+</div></div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 22:13:52 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/express-restify-mongoose.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-express-restify-mongoose">npmtest-express-restify-mongoose (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/express-restify-mongoose.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">9.64% <small>(8 / 83)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 72)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">9.64% <small>(8 / 83)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/</a> &#187; express-restify-mongoose.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+var util = require('util');
+var _ = require('lodash');
+var Filter = require('./resource_filter');
+var customDefaults = null;
+var excludedMap = {};
+&nbsp;
+<span class="fstat-no" title="function not covered" >function getDefaults() {</span>
+<span class="cstat-no" title="statement not covered" >  return _.defaults(_.clone(customDefaults) || {}, {</span>
+    prefix: '/api',
+    version: '/v1',
+    idProperty: '_id',
+    findOneAndUpdate: true,
+    findOneAndRemove: true,
+    lean: true,
+    restify: false,
+    runValidators: false,
+    allowRegex: true,
+    private: [],
+    protected: []
+  });
+}
+&nbsp;
+var restify = <span class="fstat-no" title="function not covered" >function restify(app, model) {</span>
+<span class="cstat-no" title="statement not covered" >  var opts = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : {};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var options = {};</span>
+<span class="cstat-no" title="statement not covered" >  _.assign(options, getDefaults(), opts);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var access = require('./middleware/access');</span>
+<span class="cstat-no" title="statement not covered" >  var ensureContentType = require('./middleware/ensureContentType')(options);</span>
+<span class="cstat-no" title="statement not covered" >  var filterAndFindById = require('./middleware/filterAndFindById')(model, options);</span>
+<span class="cstat-no" title="statement not covered" >  var onError = require('./middleware/onError');</span>
+<span class="cstat-no" title="statement not covered" >  var outputFn = require('./middleware/outputFn');</span>
+<span class="cstat-no" title="statement not covered" >  var prepareQuery = require('./middleware/prepareQuery')(options);</span>
+<span class="cstat-no" title="statement not covered" >  var prepareOutput = require('./middleware/prepareOutput')(options, excludedMap);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.private)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new Error('"options.private" must be an array of fields');</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.protected)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new Error('"options.protected" must be an array of fields');</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  model.schema.eachPath(<span class="fstat-no" title="function not covered" >function (name, path) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (path.options.access) {</span>
+<span class="cstat-no" title="statement not covered" >      switch (path.options.access.toLowerCase()) {</span>
+        case 'private':
+<span class="cstat-no" title="statement not covered" >          options.private.push(name);</span>
+<span class="cstat-no" title="statement not covered" >          break;</span>
+        case 'protected':
+<span class="cstat-no" title="statement not covered" >          options.protected.push(name);</span>
+<span class="cstat-no" title="statement not covered" >          break;</span>
+      }
+    }
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  options.filter = new Filter({</span>
+    model: model,
+    excludedMap: excludedMap,
+    filteredKeys: {
+      private: options.private,
+      protected: options.protected
+    }
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  excludedMap[model.modelName] = options.filter.filteredKeys;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.preMiddleware)) {</span>
+<span class="cstat-no" title="statement not covered" >    options.preMiddleware = options.preMiddleware ? [options.preMiddleware] : [];</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.preCreate)) {</span>
+<span class="cstat-no" title="statement not covered" >    options.preCreate = options.preCreate ? [options.preCreate] : [];</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.preRead)) {</span>
+<span class="cstat-no" title="statement not covered" >    options.preRead = options.preRead ? [options.preRead] : [];</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.preUpdate)) {</span>
+<span class="cstat-no" title="statement not covered" >    options.preUpdate = options.preUpdate ? [options.preUpdate] : [];</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.preDelete)) {</span>
+<span class="cstat-no" title="statement not covered" >    options.preDelete = options.preDelete ? [options.preDelete] : [];</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!options.contextFilter) {</span>
+<span class="cstat-no" title="statement not covered" >    options.contextFilter = <span class="fstat-no" title="function not covered" >function (model, req, done) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return done(model);</span>
+    };
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.postCreate)) {</span>
+<span class="cstat-no" title="statement not covered" >    options.postCreate = options.postCreate ? [options.postCreate] : [];</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.postRead)) {</span>
+<span class="cstat-no" title="statement not covered" >    options.postRead = options.postRead ? [options.postRead] : [];</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.postUpdate)) {</span>
+<span class="cstat-no" title="statement not covered" >    options.postUpdate = options.postUpdate ? [options.postUpdate] : [];</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(options.postDelete)) {</span>
+<span class="cstat-no" title="statement not covered" >    options.postDelete = options.postDelete ? [options.postDelete] : [];</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!options.onError) {</span>
+<span class="cstat-no" title="statement not covered" >    options.onError = onError(!options.restify);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!options.outputFn) {</span>
+<span class="cstat-no" title="statement not covered" >    options.outputFn = outputFn(!options.restify);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  options.name = options.name || model.modelName;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var ops = require('./operations')(model, options, excludedMap);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var uriItem = '' + options.prefix + options.version + '/' + options.name;</span>
+<span class="cstat-no" title="statement not covered" >  if (uriItem.indexOf('/:id') === -1) {</span>
+<span class="cstat-no" title="statement not covered" >    uriItem += '/:id';</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var uriItems = uriItem.replace('/:id', '');</span>
+<span class="cstat-no" title="statement not covered" >  var uriCount = uriItems + '/count';</span>
+<span class="cstat-no" title="statement not covered" >  var uriShallow = uriItem + '/shallow';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (_.isUndefined(app.delete)) {</span>
+<span class="cstat-no" title="statement not covered" >    app.delete = app.del;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  app.use(<span class="fstat-no" title="function not covered" >function (req, res, next) {</span></span>
+<span class="cstat-no" title="statement not covered" >    req.erm = { model: model };</span>
+<span class="cstat-no" title="statement not covered" >    next();</span>
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var accessMiddleware = options.access ? access(options) : [];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  app.get(uriItems, prepareQuery, options.preMiddleware, options.preRead, accessMiddleware, ops.getItems, prepareOutput);</span>
+<span class="cstat-no" title="statement not covered" >  app.get(uriCount, prepareQuery, options.preMiddleware, options.preRead, accessMiddleware, ops.getCount, prepareOutput);</span>
+<span class="cstat-no" title="statement not covered" >  app.get(uriItem, prepareQuery, options.preMiddleware, options.preRead, accessMiddleware, ops.getItem, prepareOutput);</span>
+<span class="cstat-no" title="statement not covered" >  app.get(uriShallow, prepareQuery, options.preMiddleware, options.preRead, accessMiddleware, ops.getShallow, prepareOutput);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  app.post(uriItems, prepareQuery, ensureContentType, options.preMiddleware, options.preCreate, accessMiddleware, ops.createObject, prepareOutput);</span>
+<span class="cstat-no" title="statement not covered" >  app.post(uriItem, util.deprecate(prepareQuery, 'express-restify-mongoose: in a future major version, the POST method to update resources will be removed. Use PATCH instead.'), ensureContentType, options.preMiddleware, options.findOneAndUpdate ? [] : filterAndFindById, options.preUpdate, accessMiddleware, ops.modifyObject, prepareOutput);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  app.put(uriItem, util.deprecate(prepareQuery, 'express-restify-mongoose: in a future major version, the PUT method will replace rather than update a resource. Use PATCH instead.'), ensureContentType, options.preMiddleware, options.findOneAndUpdate ? [] : filterAndFindById, options.preUpdate, accessMiddleware, ops.modifyObject, prepareOutput);</span>
+<span class="cstat-no" title="statement not covered" >  app.patch(uriItem, prepareQuery, ensureContentType, options.preMiddleware, options.findOneAndUpdate ? [] : filterAndFindById, options.preUpdate, accessMiddleware, ops.modifyObject, prepareOutput);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  app.delete(uriItems, prepareQuery, options.preMiddleware, options.preDelete, ops.deleteItems, prepareOutput);</span>
+<span class="cstat-no" title="statement not covered" >  app.delete(uriItem, prepareQuery, options.preMiddleware, options.findOneAndRemove ? [] : filterAndFindById, options.preDelete, ops.deleteItem, prepareOutput);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return uriItems;</span>
+};
+&nbsp;
+module.exports = {
+  defaults: <span class="fstat-no" title="function not covered" >function defaults(options) {</span>
+<span class="cstat-no" title="statement not covered" >    customDefaults = options;</span>
+  },
+  serve: restify
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9leHByZXNzLXJlc3RpZnktbW9uZ29vc2UuanMiXSwibmFtZXMiOlsidXRpbCIsInJlcXVpcmUiLCJfIiwiRmlsdGVyIiwiY3VzdG9tRGVmYXVsdHMiLCJleGNsdWRlZE1hcCIsImdldERlZmF1bHRzIiwiZGVmYXVsdHMiLCJjbG9uZSIsInByZWZpeCIsInZlcnNpb24iLCJpZFByb3BlcnR5IiwiZmluZE9uZUFuZFVwZGF0ZSIsImZpbmRPbmVBbmRSZW1vdmUiLCJsZWFuIiwicmVzdGlmeSIsInJ1blZhbGlkYXRvcnMiLCJhbGxvd1JlZ2V4IiwicHJpdmF0ZSIsInByb3RlY3RlZCIsImFwcCIsIm1vZGVsIiwib3B0cyIsIm9wdGlvbnMiLCJhc3NpZ24iLCJhY2Nlc3MiLCJlbnN1cmVDb250ZW50VHlwZSIsImZpbHRlckFuZEZpbmRCeUlkIiwib25FcnJvciIsIm91dHB1dEZuIiwicHJlcGFyZVF1ZXJ5IiwicHJlcGFyZU91dHB1dCIsImlzQXJyYXkiLCJFcnJvciIsInNjaGVtYSIsImVhY2hQYXRoIiwibmFtZSIsInBhdGgiLCJ0b0xvd2VyQ2FzZSIsInB1c2giLCJmaWx0ZXIiLCJmaWx0ZXJlZEtleXMiLCJtb2RlbE5hbWUiLCJwcmVNaWRkbGV3YXJlIiwicHJlQ3JlYXRlIiwicHJlUmVhZCIsInByZVVwZGF0ZSIsInByZURlbGV0ZSIsImNvbnRleHRGaWx0ZXIiLCJyZXEiLCJkb25lIiwicG9zdENyZWF0ZSIsInBvc3RSZWFkIiwicG9zdFVwZGF0ZSIsInBvc3REZWxldGUiLCJvcHMiLCJ1cmlJdGVtIiwiaW5kZXhPZiIsInVyaUl0ZW1zIiwicmVwbGFjZSIsInVyaUNvdW50IiwidXJpU2hhbGxvdyIsImlzVW5kZWZpbmVkIiwiZGVsZXRlIiwiZGVsIiwidXNlIiwicmVzIiwibmV4dCIsImVybSIsImFjY2Vzc01pZGRsZXdhcmUiLCJnZXQiLCJnZXRJdGVtcyIsImdldENvdW50IiwiZ2V0SXRlbSIsImdldFNoYWxsb3ciLCJwb3N0IiwiY3JlYXRlT2JqZWN0IiwiZGVwcmVjYXRlIiwibW9kaWZ5T2JqZWN0IiwicHV0IiwicGF0Y2giLCJkZWxldGVJdGVtcyIsImRlbGV0ZUl0ZW0iLCJtb2R1bGUiLCJleHBvcnRzIiwic2VydmUiXSwibWFwcGluZ3MiOiI7O0FBQUEsSUFBTUEsT0FBT0MsUUFBUSxNQUFSLENBQWI7QUFDQSxJQUFNQyxJQUFJRCxRQUFRLFFBQVIsQ0FBVjtBQUNBLElBQU1FLFNBQVNGLFFBQVEsbUJBQVIsQ0FBZjtBQUNBLElBQUlHLGlCQUFpQixJQUFyQjtBQUNBLElBQUlDLGNBQWMsRUFBbEI7O0FBRUEsU0FBU0MsV0FBVCxHQUF3QjtBQUN0QixTQUFPSixFQUFFSyxRQUFGLENBQVdMLEVBQUVNLEtBQUYsQ0FBUUosY0FBUixLQUEyQixFQUF0QyxFQUEwQztBQUMvQ0ssWUFBUSxNQUR1QztBQUUvQ0MsYUFBUyxLQUZzQztBQUcvQ0MsZ0JBQVksS0FIbUM7QUFJL0NDLHNCQUFrQixJQUo2QjtBQUsvQ0Msc0JBQWtCLElBTDZCO0FBTS9DQyxVQUFNLElBTnlDO0FBTy9DQyxhQUFTLEtBUHNDO0FBUS9DQyxtQkFBZSxLQVJnQztBQVMvQ0MsZ0JBQVksSUFUbUM7QUFVL0NDLGFBQVMsRUFWc0M7QUFXL0NDLGVBQVc7QUFYb0MsR0FBMUMsQ0FBUDtBQWFEOztBQUVELElBQU1KLFVBQVUsU0FBVkEsT0FBVSxDQUFVSyxHQUFWLEVBQWVDLEtBQWYsRUFBaUM7QUFBQSxNQUFYQyxJQUFXLHVFQUFKLEVBQUk7O0FBQy9DLE1BQUlDLFVBQVUsRUFBZDtBQUNBckIsSUFBRXNCLE1BQUYsQ0FBU0QsT0FBVCxFQUFrQmpCLGFBQWxCLEVBQWlDZ0IsSUFBakM7O0FBRUEsTUFBTUcsU0FBU3hCLFFBQVEscUJBQVIsQ0FBZjtBQUNBLE1BQU15QixvQkFBb0J6QixRQUFRLGdDQUFSLEVBQTBDc0IsT0FBMUMsQ0FBMUI7QUFDQSxNQUFNSSxvQkFBb0IxQixRQUFRLGdDQUFSLEVBQTBDb0IsS0FBMUMsRUFBaURFLE9BQWpELENBQTFCO0FBQ0EsTUFB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R0FBZ0NlLGlCQUEzRyxFQUE4SEosUUFBUXVCLFNBQXRJLEVBQWlKdUIsZ0JBQWpKLEVBQW1LZCxJQUFJdUIsWUFBdkssRUFBcUwvQyxhQUFyTDs7QUFFQVgsTUFBSTJDLE1BQUosQ0FBV0wsUUFBWCxFQUFxQjVCLFlBQXJCLEVBQW1DUCxRQUFRb0IsYUFBM0MsRUFBMERwQixRQUFRd0IsU0FBbEUsRUFBNkVRLElBQUkwQixXQUFqRixFQUE4RmxELGFBQTlGO0FBQ0FYLE1BQUkyQyxNQUFKLENBQVdQLE9BQVgsRUFBb0IxQixZQUFwQixFQUFrQ1AsUUFBUW9CLGFBQTFDLEVBQXlEcEIsUUFBUVYsZ0JBQVIsR0FBMkIsRUFBM0IsR0FBZ0NjLGlCQUF6RixFQUE0R0osUUFBUXdCLFNBQXBILEVBQStIUSxJQUFJMkIsVUFBbkksRUFBK0luRCxhQUEvSTs7QUFFQSxTQUFPMkIsUUFBUDtBQUNELENBbklEOztBQXFJQXlCLE9BQU9DLE9BQVAsR0FBaUI7QUFDZjdFLFlBQVUsa0JBQVVnQixPQUFWLEVBQW1CO0FBQzNCbkIscUJBQWlCbUIsT0FBakI7QUFDRCxHQUhjO0FBSWY4RCxTQUFPdEU7QUFKUSxDQUFqQiIsImZpbGUiOiJleHByZXNzLXJlc3RpZnktbW9uZ29vc2UuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCB1dGlsID0gcmVxdWlyZSgndXRpbCcpXHJcbmNvbnN0IF8gPSByZXF1aXJlKCdsb2Rhc2gnKVxyXG5jb25zdCBGaWx0ZXIgPSByZXF1aXJlKCcuL3Jlc291cmNlX2ZpbHRlcicpXHJcbmxldCBjdXN0b21EZWZhdWx0cyA9IG51bGxcclxubGV0IGV4Y2x1ZGVkTWFwID0ge31cclxuXHJcbmZ1bmN0aW9uIGdldERlZmF1bHRzICgpIHtcclxuICByZXR1cm4gXy5kZWZhdWx0cyhfLmNsb25lKGN1c3RvbURlZmF1bHRzKSB8fCB7fSwge1xyXG4gICAgcHJlZml4OiAnL2FwaScsXHJcbiAgICB2ZXJzaW9uOiAnL3YxJyxcclxuICAgIGlkUHJvcGVydHk6ICdfaWQnLFxyXG4gICAgZmluZE9uZUFuZFVwZGF0ZTogdHJ1ZSxcclxuICAgIGZpbmRPbmVBbmRSZW1vdmU6IHRydWUsXHJcbiAgICBsZWFuOiB0cnVlLFxyXG4gICAgcmVzdGlmeTogZmFsc2UsXHJcbiAgICBydW5WYWxpZGF0b3JzOiBmYWxzZSxcclxuICAgIGFsbG93UmVnZXg6IHRydWUsXHJcbiAgICBwcml2YXRlOiBbXSxcclxuICAgIHByb3RlY3RlZDogW11cclxuICB9KVxyXG59XHJcblxyXG5jb25zdCByZXN0aWZ5ID0gZnVuY3Rpb24gKGFwcCwgbW9kZWwsIG9wdHMgPSB7fSkge1xyXG4gIGxldCBvcHRpb25zID0ge31cclxuICBfLmFzc2lnbihvcHRpb25zLCBnZXREZWZhdWx0cygpLCBvcHRzKVxyXG5cclxuICBjb25zdCBhY2Nlc3MgPSByZXF1aXJlKCcuL21pZGRsZXdhcmUvYWNjZXNzJylcclxuICBjb25zdCBlbnN1cmVDb250ZW50VHlwZSA9IHJlcXVpcmUoJy4vbWlkZGxld2FyZS9lbnN1cmVDb250ZW50VHlwZScpKG9wdGlvbnMpXHJcbiAgY29uc3QgZmlsdGVyQW5kRmluZEJ5SWQgPSByZXF1aXJlKCcuL21pZGRsZXdhcmUvZmlsdGVyQW5kRmluZEJ5SWQnKShtb2RlbCwgb3B0aW9ucylcclxuICBjb25zdCBvbkVycm9yID0gcmVxdWlyZSgnLi9taWRkbGV3YXJlL29uRXJyb3InKVxyXG4gIGNvbnN0IG91dHB1dEZuID0gcmVxdWlyZSgnLi9taWRkbGV3YXJlL291dHB1dEZuJylcclxuICBjb25zdCBwcmVwYXJlUXVlcnkgPSByZXF1aXJlKCcuL21pZGRsZXdhcmUvcHJlcGFyZVF1ZXJ5Jykob3B0aW9ucylcclxuICBjb25zdCBwcmVwYXJlT3V0cHV0ID0gcmVxdWlyZSgnLi9taWRkbGV3YXJlL3ByZXBhcmVPdXRwdXQnKShvcHRpb25zLCBleGNsdWRlZE1hcClcclxuXHJcbiAgaWYgKCFfLmlzQXJyYXkob3B0aW9ucy5wcml2YXRlKSkge1xyXG4gICAgdGhyb3cgbmV3IEVycm9yKCdcIm9wdGlvbnMucHJpdmF0ZVwiIG11c3QgYmUgYW4gYXJyYXkgb2YgZmllbGRzJylcclxuICB9XHJcblxyXG4gIGlmICghXy5pc0FycmF5KG9wdGlvbnMucHJvdGVjdGVkKSkge1xyXG4gICAgdGhyb3cgbmV3IEVycm9yKCdcIm9wdGlvbnMucHJvdGVjdGVkXCIgbXVzdCBiZSBhbiBhcnJheSBvZiBmaWVsZHMnKVxyXG4gIH1cclxuXHJcbiAgbW9kZWwuc2NoZW1hLmVhY2hQYXRoKChuYW1lLCBwYXRoKSA9PiB7XHJcbiAgICBpZiAocGF0aC5vcHRpb25zLmFjY2Vzcykge1xyXG4gICAgICBzd2l0Y2ggKHBhdGgub3B0aW9ucy5hY2Nlc3MudG9Mb3dlckNhc2UoKSkge1xyXG4gICAgICAgIGNhc2UgJ3ByaXZhdGUnOlxyXG4gICAgICAgICAgb3B0aW9ucy5wcml2YXRlLnB1c2gobmFtZSlcclxuICAgICAgICAgIGJyZWFrXHJcbiAgICAgICAgY2FzZSAncHJvdGVjdGVkJzpcclxuICAgICAgICAgIG9wdGlvbnMucHJvdGVjdGVkLnB1c2gobmFtZSlcclxuICAgICAgICAgIGJyZWFrXHJcbiAgICAgIH1cclxuICAgIH1cclxuICB9KVxyXG5cclxuICBvcHRpb25zLmZpbHRlciA9IG5ldyBGaWx0ZXIoe1xyXG4gICAgbW9kZWwsXHJcbiAgICBleGNsdWRlZE1hcCxcclxuICAgIGZpbHRlcmVkS2V5czoge1xyXG4gICAgICBwcml2YXRlOiBvcHRpb25zLnByaXZhdGUsXHJcbiAgICAgIHByb3RlY3RlZDogb3B0aW9ucy5wcm90ZWN0ZWRcclxuICAgIH1cclxuICB9KVxyXG5cclxuICBleGNsdWRlZE1hcFttb2RlbC5tb2RlbE5hbWVdID0gb3B0aW9ucy5maWx0ZXIuZmlsdGVyZWRLZXlzXHJcblxyXG4gIGlmICghXy5pc0FycmF5KG9wdGlvbnMucHJlTWlkZGxld2FyZSkpIHtcclxuICAgIG9wdGlvbnMucHJlTWlkZGxld2FyZSA9IG9wdGlvbnMucHJlTWlkZGxld2FyZSA/IFtvcHRpb25zLnByZU1pZGRsZXdhcmVdIDogW11cclxuICB9XHJcblxyXG4gIGlmICghXy5pc0FycmF5KG9wdGlvbnMucHJlQ3JlYXRlKSkge1xyXG4gICAgb3B0aW9ucy5wcmVDcmVhdGUgPSBvcHRpb25zLnByZUNyZWF0ZSA/IFtvcHRpb25zLnByZUNyZWF0ZV0gOiBbXVxyXG4gIH1cclxuXHJcbiAgaWYgKCFfLmlzQXJyYXkob3B0aW9ucy5wcmVSZWFkKSkge1xyXG4gICAgb3B0aW9ucy5wcmVSZWFkID0gb3B0aW9ucy5wcmVSZWFkID8gW29wdGlvbnMucHJlUmVhZF0gOiBbXVxyXG4gIH1cclxuXHJcbiAgaWYgKCFfLmlzQXJyYXkob3B0aW9ucy5wcmVVcGRhdGUpKSB7XHJcbiAgICBvcHRpb25zLnByZVVwZGF0ZSA9IG9wdGlvbnMucHJlVXBkYXRlID8gW29wdGlvbnMucHJlVXBkYXRlXSA6IFtdXHJcbiAgfVxyXG5cclxuICBpZiAoIV8uaXNBcnJheShvcHRpb25zLnByZURlbGV0ZSkpIHtcclxuICAgIG9wdGlvbnMucHJlRGVsZXRlID0gb3B0aW9ucy5wcmVEZWxldGUgPyBbb3B0aW9ucy5wcmVEZWxldGVdIDogW11cclxuICB9XHJcblxyXG4gIGlmICghb3B0aW9ucy5jb250ZXh0RmlsdGVyKSB7XHJcbiAgICBvcHRpb25zLmNvbnRleHRGaWx0ZXIgPSAobW9kZWwsIHJlcSwgZG9uZSkgPT4gZG9uZShtb2RlbClcclxuICB9XHJcblxyXG4gIGlmICghXy5pc0FycmF5KG9wdGlvbnMucG9zdENyZWF0ZSkpIHtcclxuICAgIG9wdGlvbnMucG9zdENyZWF0ZSA9IG9wdGlvbnMucG9zdENyZWF0ZSA/IFtvcHRpb25zLnBvc3RDcmVhdGVdIDogW11cclxuICB9XHJcblxyXG4gIGlmICghXy5pc0FycmF5KG9wdGlvbnMucG9zdFJlYWQpKSB7XHJcbiAgICBvcHRpb25zLnBvc3RSZWFkID0gb3B0aW9ucy5wb3N0UmVhZCA/IFtvcHRpb25zLnBvc3RSZWFkXSA6IFtdXHJcbiAgfVxyXG5cclxuICBpZiAoIV8uaXNBcnJheShvcHRpb25zLnBvc3RVcGRhdGUpKSB7XHJcbiAgICBvcHRpb25zLnBvc3RVcGRhdGUgPSBvcHRpb25zLnBvc3RVcGRhdGUgPyBbb3B0aW9ucy5wb3N0VXBkYXRlXSA6IFtdXHJcbiAgfVxyXG5cclxuICBpZiAoIV8uaXNBcnJheShvcHRpb25zLnBvc3REZWxldGUpKSB7XHJcbiAgICBvcHRpb25zLnBvc3REZWxldGUgPSBvcHRpb25zLnBvc3REZWxldGUgPyBbb3B0aW9ucy5wb3N0RGVsZXRlXSA6IFtdXHJcbiAgfVxyXG5cclxuICBpZiAoIW9wdGlvbnMub25FcnJvcikge1xyXG4gICAgb3B0aW9ucy5vbkVycm9yID0gb25FcnJvcighb3B0aW9ucy5yZXN0aWZ5KVxyXG4gIH1cclxuXHJcbiAgaWYgKCFvcHRpb25zLm91dHB1dEZuKSB7XHJcbiAgICBvcHRpb25zLm91dHB1dEZuID0gb3V0cHV0Rm4oIW9wdGlvbnMucmVzdGlmeSlcclxuICB9XHJcblxyXG4gIG9wdGlvbnMubmFtZSA9IG9wdGlvbnMubmFtZSB8fCBtb2RlbC5tb2RlbE5hbWVcclxuXHJcbiAgY29uc3Qgb3BzID0gcmVxdWlyZSgnLi9vcGVyYXRpb25zJykobW9kZWwsIG9wdGlvbnMsIGV4Y2x1ZGVkTWFwKVxyXG5cclxuICBsZXQgdXJpSXRlbSA9IGAke29wdGlvbnMucHJlZml4fSR7b3B0aW9ucy52ZXJzaW9ufS8ke29wdGlvbnMubmFtZX1gXHJcbiAgaWYgKHVyaUl0ZW0uaW5kZXhPZignLzppZCcpID09PSAtMSkge1xyXG4gICAgdXJpSXRlbSArPSAnLzppZCdcclxuICB9XHJcblxyXG4gIGNvbnN0IHVyaUl0ZW1zID0gdXJpSXRlbS5yZXBsYWNlKCcvOmlkJywgJycpXHJcbiAgY29uc3QgdXJpQ291bnQgPSB1cmlJdGVtcyArICcvY291bnQnXHJcbiAgY29uc3QgdXJpU2hhbGxvdyA9IHVyaUl0ZW0gKyAnL3NoYWxsb3cnXHJcblxyXG4gIGlmIChfLmlzVW5kZWZpbmVkKGFwcC5kZWxldGUpKSB7XHJcbiAgICBhcHAuZGVsZXRlID0gYXBwLmRlbFxyXG4gIH1cclxuXHJcbiAgYXBwLnVzZSgocmVxLCByZXMsIG5leHQpID0+IHtcclxuICAgIHJlcS5lcm0gPSB7IG1vZGVsIH1cclxuICAgIG5leHQoKVxyXG4gIH0pXHJcblxyXG4gIGNvbnN0IGFjY2Vzc01pZGRsZXdhcmUgPSBvcHRpb25zLmFjY2VzcyA/IGFjY2VzcyhvcHRpb25zKSA6IFtdXHJcblxyXG4gIGFwcC5nZXQodXJpSXRlbXMsIHByZXBhcmVRdWVyeSwgb3B0aW9ucy5wcmVNaWRkbGV3YXJlLCBvcHRpb25zLnByZVJlYWQsIGFjY2Vzc01pZGRsZXdhcmUsIG9wcy5nZXRJdGVtcywgcHJlcGFyZU91dHB1dClcclxuICBhcHAuZ2V0KHVyaUNvdW50LCBwcmVwYXJlUXVlcnksIG9wdGlvbnMucHJlTWlkZGxld2FyZSwgb3B0aW9ucy5wcmVSZWFkLCBhY2Nlc3NNaWRkbGV3YXJlLCBvcHMuZ2V0Q291bnQsIHByZXBhcmVPdXRwdXQpXHJcbiAgYXBwLmdldCh1cmlJdGVtLCBwcmVwYXJlUXVlcnksIG9wdGlvbnMucHJlTWlkZGxld2FyZSwgb3B0aW9ucy5wcmVSZWFkLCBhY2Nlc3NNaWRkbGV3YXJlLCBvcHMuZ2V0SXRlbSwgcHJlcGFyZU91dHB1dClcclxuICBhcHAuZ2V0KHVyaVNoYWxsb3csIHByZXBhcmVRdWVyeSwgb3B0aW9ucy5wcmVNaWRkbGV3YXJlLCBvcHRpb25zLnByZVJlYWQsIGFjY2Vzc01pZGRsZXdhcmUsIG9wcy5nZXRTaGFsbG93LCBwcmVwYXJlT3V0cHV0KVxyXG5cclxuICBhcHAucG9zdCh1cmlJdGVtcywgcHJlcGFyZVF1ZXJ5LCBlbnN1cmVDb250ZW50VHlwZSwgb3B0aW9ucy5wcmVNaWRkbGV3YXJlLCBvcHRpb25zLnByZUNyZWF0ZSwgYWNjZXNzTWlkZGxld2FyZSwgb3BzLmNyZWF0ZU9iamVjdCwgcHJlcGFyZU91dHB1dClcclxuICBhcHAucG9zdCh1cmlJdGVtLCB1dGlsLmRlcHJlY2F0ZShwcmVwYXJlUXVlcnksICdleHByZXNzLXJlc3RpZnktbW9uZ29vc2U6IGluIGEgZnV0dXJlIG1ham9yIHZlcnNpb24sIHRoZSBQT1NUIG1ldGhvZCB0byB1cGRhdGUgcmVzb3VyY2VzIHdpbGwgYmUgcmVtb3ZlZC4gVXNlIFBBVENIIGluc3RlYWQuJyksIGVuc3VyZUNvbnRlbnRUeXBlLCBvcHRpb25zLnByZU1pZGRsZXdhcmUsIG9wdGlvbnMuZmluZE9uZUFuZFVwZGF0ZSA/IFtdIDogZmlsdGVyQW5kRmluZEJ5SWQsIG9wdGlvbnMucHJlVXBkYXRlLCBhY2Nlc3NNaWRkbGV3YXJlLCBvcHMubW9kaWZ5T2JqZWN0LCBwcmVwYXJlT3V0cHV0KVxyXG5cclxuICBhcHAucHV0KHVyaUl0ZW0sIHV0aWwuZGVwcmVjYXRlKHByZXBhcmVRdWVyeSwgJ2V4cHJlc3MtcmVzdGlmeS1tb25nb29zZTogaW4gYSBmdXR1cmUgbWFqb3IgdmVyc2lvbiwgdGhlIFBVVCBtZXRob2Qgd2lsbCByZXBsYWNlIHJhdGhlciB0aGFuIHVwZGF0ZSBhIHJlc291cmNlLiBVc2UgUEFUQ0ggaW5zdGVhZC4nKSwgZW5zdXJlQ29udGVudFR5cGUsIG9wdGlvbnMucHJlTWlkZGxld2FyZSwgb3B0aW9ucy5maW5kT25lQW5kVXBkYXRlID8gW10gOiBmaWx0ZXJBbmRGaW5kQnlJZCwgb3B0aW9ucy5wcmVVcGRhdGUsIGFjY2Vzc01pZGRsZXdhcmUsIG9wcy5tb2RpZnlPYmplY3QsIHByZXBhcmVPdXRwdXQpXHJcbiAgYXBwLnBhdGNoKHVyaUl0ZW0sIHByZXBhcmVRdWVyeSwgZW5zdXJlQ29udGVudFR5cGUsIG9wdGlvbnMucHJlTWlkZGxld2FyZSwgb3B0aW9ucy5maW5kT25lQW5kVXBkYXRlID8gW10gOiBmaWx0ZXJBbmRGaW5kQnlJZCwgb3B0aW9ucy5wcmVVcGRhdGUsIGFjY2Vzc01pZGRsZXdhcmUsIG9wcy5tb2RpZnlPYmplY3QsIHByZXBhcmVPdXRwdXQpXHJcblxyXG4gIGFwcC5kZWxldGUodXJpSXRlbXMsIHByZXBhcmVRdWVyeSwgb3B0aW9ucy5wcmVNaWRkbGV3YXJlLCBvcHRpb25zLnByZURlbGV0ZSwgb3BzLmRlbGV0ZUl0ZW1zLCBwcmVwYXJlT3V0cHV0KVxyXG4gIGFwcC5kZWxldGUodXJpSXRlbSwgcHJlcGFyZVF1ZXJ5LCBvcHRpb25zLnByZU1pZGRsZXdhcmUsIG9wdGlvbnMuZmluZE9uZUFuZFJlbW92ZSA/IFtdIDogZmlsdGVyQW5kRmluZEJ5SWQsIG9wdGlvbnMucHJlRGVsZXRlLCBvcHMuZGVsZXRlSXRlbSwgcHJlcGFyZU91dHB1dClcclxuXHJcbiAgcmV0dXJuIHVyaUl0ZW1zXHJcbn1cclxuXHJcbm1vZHVsZS5leHBvcnRzID0ge1xyXG4gIGRlZmF1bHRzOiBmdW5jdGlvbiAob3B0aW9ucykge1xyXG4gICAgY3VzdG9tRGVmYXVsdHMgPSBvcHRpb25zXHJcbiAgfSxcclxuICBzZXJ2ZTogcmVzdGlmeVxyXG59XHJcbiJdfQ==
+//# sourceMappingURL=express-restify-mongoose.js.map
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 22:13:52 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/resource_filter.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-express-restify-mongoose">npmtest-express-restify-mongoose (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/resource_filter.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">16.39% <small>(10 / 61)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 55)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">16.39% <small>(10 / 61)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-express-restify-mongoose/express-restify-mongoose/lib/</a> &#187; resource_filter.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+var _ = require('lodash');
+var detective = require('mongoose-detective');
+var weedout = require('weedout');
+&nbsp;
+/**
+ * Represents a filter.
+ * @constructor
+ * @param {Object} opts - Options
+ * @param {Object} opts.model - Mongoose model
+ * @param {Object} opts.excludedMap {} - Filtered keys for related models
+ * @param {Object} opts.filteredKeys {} - Keys to filter for the current model
+ */
+<span class="fstat-no" title="function not covered" >function Filter(opts) {</span>
+<span class="cstat-no" title="statement not covered" >  this.model = opts.model;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.filteredKeys = _.isPlainObject(opts.filteredKeys) ? {</span>
+    private: opts.filteredKeys.private || [],
+    protected: opts.filteredKeys.protected || []
+  } : {
+    private: [],
+    protected: []
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (this.model &amp;&amp; this.model.discriminators &amp;&amp; _.isPlainObject(opts.excludedMap)) {</span>
+<span class="cstat-no" title="statement not covered" >    for (var modelName in this.model.discriminators) {</span>
+<span class="cstat-no" title="statement not covered" >      if (opts.excludedMap[modelName]) {</span>
+<span class="cstat-no" title="statement not covered" >        this.filteredKeys.private = this.filteredKeys.private.concat(opts.excludedMap[modelName].private);</span>
+<span class="cstat-no" title="statement not covered" >        this.filteredKeys.protected = this.filteredKeys.protected.concat(opts.excludedMap[modelName].protected);</span>
+      }
+    }
+  }
+}
+&nbsp;
+/**
+ * Gets excluded keys for a given model and access.
+ * @memberof Filter
+ * @param {Object} - Options.
+ * @param {String} opts.access {public} - Access level (private, protected or public).
+ * @param {Object} opts.excludedMap {} - Filtered keys for related models
+ * @param {Object} opts.filteredKeys {} - Keys to filter for the current model
+ * @returns {Array} - Keys to filter.
+ */
+Filter.prototype.getExcluded = <span class="fstat-no" title="function not covered" >function (opts) {</span>
+<span class="cstat-no" title="statement not covered" >  if (opts.access === 'private') {</span>
+<span class="cstat-no" title="statement not covered" >    return [];</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var entry = opts.excludedMap &amp;&amp; opts.modelName ? opts.excludedMap[opts.modelName] : null;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!entry) {</span>
+<span class="cstat-no" title="statement not covered" >    entry = _.isPlainObject(opts.filteredKeys) ? {</span>
+      private: opts.filteredKeys.private || [],
+      protected: opts.filteredKeys.protected || []
+    } : {
+      private: [],
+      protected: []
+    };
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return opts.access === 'protected' ? entry.private : entry.private.concat(entry.protected);</span>
+};
+&nbsp;
+Filter.prototype.isExcluded = <span class="fstat-no" title="function not covered" >function (field, opts) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!field) {</span>
+<span class="cstat-no" title="statement not covered" >    return false;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  opts = _.defaults(opts, {</span>
+    access: 'public',
+    excludedMap: {},
+    filteredKeys: this.filteredKeys,
+    modelName: this.model.modelName
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return this.getExcluded(opts).indexOf(field) &gt;= 0;</span>
+};
+&nbsp;
+/**
+ * Removes excluded keys from a document.
+ * @memberof Filter
+ * @param {Object} - Source document.
+ * @param {Array} - Keys to filter.
+ * @returns {Object} - Filtered document.
+ */
+Filter.prototype.filterItem = <span class="fstat-no" title="function not covered" >function (item, excluded) {</span>
+<span class="cstat-no" title="statement not covered" >  var _this = this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (_.isArray(item)) {</span>
+<span class="cstat-no" title="statement not covered" >    return item.map(<span class="fstat-no" title="function not covered" >function (i) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return _this.filterItem(i, excluded);</span>
+    });
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (item &amp;&amp; excluded) {</span>
+<span class="cstat-no" title="statement not covered" >    if (_.isFunction(item.toObject)) {</span>
+<span class="cstat-no" title="statement not covered" >      item = item.toObject();</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    for (var i = 0, length = excluded.length; i &lt; length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >      if (excluded[i].indexOf('.') &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >        weedout(item, excluded[i]);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        delete item[excluded[i]];</span>
+      }
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return item;</span>
+};
+&nbsp;
+/**
+ * Removes excluded keys from a document with populated subdocuments.
+ * @memberof Filter
+ * @param {Object} - Source document.
+ * @param {Object} - Keys to filter.
+ * @param {Array} opts.populate - Paths to populated subdocuments.
+ * @param {String} opts.access - Access level (private, protected or public).
+ * @param {Object} opts.excludedMap {} - Filtered keys for related models
+ * @returns {Object} - Filtered document.
+ */
+Filter.prototype.filterPopulatedItem = <span class="fstat-no" title="function not covered" >function (item, opts) {</span>
+<span class="cstat-no" title="statement not covered" >  var _this2 = this;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (_.isArray(item)) {</span>
+<span class="cstat-no" title="statement not covered" >    return item.map(<span class="fstat-no" title="function not covered" >function (i) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return _this2.filterPopulatedItem(i, opts);</span>
+    });
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  for (var i = 0; i &lt; opts.populate.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!opts.populate[i].path) {</span>
+<span class="cstat-no" title="statement not covered" >      continue;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var excluded = this.getExcluded({</span>
+      access: opts.access,
+      excludedMap: opts.excludedMap,
+      modelName: detective(this.model, opts.populate[i].path)
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (_.has(item, opts.populate[i].path)) {</span>
+<span class="cstat-no" title="statement not covered" >      this.filterItem(_.get(item, opts.populate[i].path), excluded);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      var pathToArray = opts.populate[i].path.split('.').slice(0, -1).join('.');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (_.has(item, pathToArray)) {</span>
+<span class="cstat-no" title="statement not covered" >        var array = _.get(item, pathToArray);</span>
+<span class="cstat-no" title="statement not covered" >        var pathToObject = opts.populate[i].path.split('.').slice(-1).join('.');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        this.filterItem(_.map(array, pathToObject), excluded);</span>
+      }
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return item;</span>
+};
+&nbsp;
+/**
+ * Removes excluded keys from a document.
+ * @memberof Filter
+ * @access public
+ * @param {Object} - Source document.
+ * @param {Object} - Options.
+ * @param {String} opts.access {public} - Access level (private, protected or public).
+ * @param {Object} opts.excludedMap {} - Filtered keys for related models
+ * @param {Array} opts.populate - Paths to populated subdocuments.
+ * @returns {Object} - Filtered document.
+ */
+Filter.prototype.filterObject = <span class="fstat-no" title="function not covered" >function (resource) {</span>
+<span class="cstat-no" title="statement not covered" >  var opts = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  opts = _.defaults(opts, {</span>
+    access: 'public',
+    excludedMap: {},
+    filteredKeys: this.filteredKeys,
+    modelName: this.model.modelName
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var filtered = this.filterItem(resource, this.getExcluded(opts));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (opts.populate) {</span>
+<span class="cstat-no" title="statement not covered" >    this.filterPopulatedItem(filtered, opts);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return filtered;</span>
+};
+&nbsp;
+module.exports = Filter;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9yZXNvdXJjZV9maWx0ZXIuanMiXSwibmFtZXMiOlsiXyIsInJlcXVpcmUiLCJkZXRlY3RpdmUiLCJ3ZWVkb3V0IiwiRmlsdGVyIiwib3B0cyIsIm1vZGVsIiwiZmlsdGVyZWRLZXlzIiwiaXNQbGFpbk9iamVjdCIsInByaXZhdGUiLCJwcm90ZWN0ZWQiLCJkaXNjcmltaW5hdG9ycyIsImV4Y2x1ZGVkTWFwIiwibW9kZWxOYW1lIiwiY29uY2F0IiwicHJvdG90eXBlIiwiZ2V0RXhjbHVkZWQiLCJhY2Nlc3MiLCJlbnRyeSIsImlzRXhjbHVkZWQiLCJmaWVsZCIsImRlZmF1bHRzIiwiaW5kZXhPZiIsImZpbHRlckl0ZW0iLCJpdGVtIiwiZXhjbHVkZWQiLCJpc0FycmF5IiwibWFwIiwiaSIsImlzRnVuY3Rpb24iLCJ0b09iamVjdCIsImxlbmd0aCIsImZpbHRlclBvcHVsYXRlZEl0ZW0iLCJwb3B1bGF0ZSIsInBhdGgiLCJoYXMiLCJnZXQiLCJwYXRoVG9BcnJheSIsInNwbGl0Iiwic2xpY2UiLCJqb2luIiwiYXJyYXkiLCJwYXRoVG9PYmplY3QiLCJmaWx0ZXJPYmplY3QiLCJyZXNvdXJjZSIsImZpbHRlcmVkIiwibW9kdWxlIiwiZXhwb3J0cyJdLCJtYXBwaW5ncyI6Ijs7QUFBQSxJQUFNQSxJQUFJQyxRQUFRLFFBQVIsQ0FBVjtBQUNBLElBQU1DLFlBQVlELFFBQVEsb0JBQVIsQ0FBbEI7QUFDQSxJQUFNRSxVQUFVRixRQUFRLFNBQVIsQ0FBaEI7O0FBRUE7Ozs7Ozs7O0FBUUEsU0FBU0csTUFBVCxDQUFpQkMsSUFBakIsRUFBdUI7QUFDckIsT0FBS0MsS0FBTCxHQUFhRCxLQUFLQyxLQUFsQjs7QUFFQSxPQUFLQyxZQUFMLEdBQW9CUCxFQUFFUSxhQUFGLENBQWdCSCxLQUFLRSxZQUFyQixJQUFxQztBQUN2REUsYUFBU0osS0FBS0UsWUFBTCxDQUFrQkUsT0FBbEIsSUFBNkIsRUFEaUI7QUFFdkRDLGVBQVdMLEtBQUtFLFlBQUwsQ0FBa0JH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QUFFdEJMLGlCQUFhLEVBRlM7QUFHdEJMLGtCQUFjLEtBQUtBLFlBSEc7QUFJdEJNLGVBQVcsS0FBS1AsS0FBTCxDQUFXTztBQUpBLEdBQWpCLENBQVA7O0FBT0EsTUFBSWdDLFdBQVcsS0FBS3RCLFVBQUwsQ0FBZ0JxQixRQUFoQixFQUEwQixLQUFLNUIsV0FBTCxDQUFpQlgsSUFBakIsQ0FBMUIsQ0FBZjs7QUFFQSxNQUFJQSxLQUFLNEIsUUFBVCxFQUFtQjtBQUNqQixTQUFLRCxtQkFBTCxDQUF5QmEsUUFBekIsRUFBbUN4QyxJQUFuQztBQUNEOztBQUVELFNBQU93QyxRQUFQO0FBQ0QsQ0FmRDs7QUFpQkFDLE9BQU9DLE9BQVAsR0FBaUIzQyxNQUFqQiIsImZpbGUiOiJyZXNvdXJjZV9maWx0ZXIuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBfID0gcmVxdWlyZSgnbG9kYXNoJylcclxuY29uc3QgZGV0ZWN0aXZlID0gcmVxdWlyZSgnbW9uZ29vc2UtZGV0ZWN0aXZlJylcclxuY29uc3Qgd2VlZG91dCA9IHJlcXVpcmUoJ3dlZWRvdXQnKVxyXG5cclxuLyoqXHJcbiAqIFJlcHJlc2VudHMgYSBmaWx0ZXIuXHJcbiAqIEBjb25zdHJ1Y3RvclxyXG4gKiBAcGFyYW0ge09iamVjdH0gb3B0cyAtIE9wdGlvbnNcclxuICogQHBhcmFtIHtPYmplY3R9IG9wdHMubW9kZWwgLSBNb25nb29zZSBtb2RlbFxyXG4gKiBAcGFyYW0ge09iamVjdH0gb3B0cy5leGNsdWRlZE1hcCB7fSAtIEZpbHRlcmVkIGtleXMgZm9yIHJlbGF0ZWQgbW9kZWxzXHJcbiAqIEBwYXJhbSB7T2JqZWN0fSBvcHRzLmZpbHRlcmVkS2V5cyB7fSAtIEtleXMgdG8gZmlsdGVyIGZvciB0aGUgY3VycmVudCBtb2RlbFxyXG4gKi9cclxuZnVuY3Rpb24gRmlsdGVyIChvcHRzKSB7XHJcbiAgdGhpcy5tb2RlbCA9IG9wdHMubW9kZWxcclxuXHJcbiAgdGhpcy5maWx0ZXJlZEtleXMgPSBfLmlzUGxhaW5PYmplY3Qob3B0cy5maWx0ZXJlZEtleXMpID8ge1xyXG4gICAgcHJpdmF0ZTogb3B0cy5maWx0ZXJlZEtleXMucHJpdmF0ZSB8fCBbXSxcclxuICAgIHByb3RlY3RlZDogb3B0cy5maWx0ZXJlZEtleXMucHJvdGVjdGVkIHx8IFtdXHJcbiAgfSA6IHtcclxuICAgIHByaXZhdGU6IFtdLFxyXG4gICAgcHJvdGVjdGVkOiBbXVxyXG4gIH1cclxuXHJcbiAgaWYgKHRoaXMubW9kZWwgJiYgdGhpcy5tb2RlbC5kaXNjcmltaW5hdG9ycyAmJiBfLmlzUGxhaW5PYmplY3Qob3B0cy5leGNsdWRlZE1hcCkpIHtcclxuICAgIGZvciAobGV0IG1vZGVsTmFtZSBpbiB0aGlzLm1vZGVsLmRpc2NyaW1pbmF0b3JzKSB7XHJcbiAgICAgIGlmIChvcHRzLmV4Y2x1ZGVkTWFwW21vZGVsTmFtZV0pIHtcclxuICAgICAgICB0aGlzLmZpbHRlcmVkS2V5cy5wcml2YXRlID0gdGhpcy5maWx0ZXJlZEtleXMucHJpdmF0ZS5jb25jYXQob3B0cy5leGNsdWRlZE1hcFttb2RlbE5hbWVdLnByaXZhdGUpXHJcbiAgICAgICAgdGhpcy5maWx0ZXJlZEtleXMucHJvdGVjdGVkID0gdGhpcy5maWx0ZXJlZEtleXMucHJvdGVjdGVkLmNvbmNhdChvcHRzLmV4Y2x1ZGVkTWFwW21vZGVsTmFtZV0ucHJvdGVjdGVkKVxyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG4vKipcclxuICogR2V0cyBleGNsdWRlZCBrZXlzIGZvciBhIGdpdmVuIG1vZGVsIGFuZCBhY2Nlc3MuXHJcbiAqIEBtZW1iZXJvZiBGaWx0ZXJcclxuICogQHBhcmFtIHtPYmplY3R9IC0gT3B0aW9ucy5cclxuICogQHBhcmFtIHtTdHJpbmd9IG9wdHMuYWNjZXNzIHtwdWJsaWN9IC0gQWNjZXNzIGxldmVsIChwcml2YXRlLCBwcm90ZWN0ZWQgb3IgcHVibGljKS5cclxuICogQHBhcmFtIHtPYmplY3R9IG9wdHMuZXhjbHVkZWRNYXAge30gLSBGaWx0ZXJlZCBrZXlzIGZvciByZWxhdGVkIG1vZGVsc1xyXG4gKiBAcGFyYW0ge09iamVjdH0gb3B0cy5maWx0ZXJlZEtleXMge30gLSBLZXlzIHRvIGZpbHRlciBmb3IgdGhlIGN1cnJlbnQgbW9kZWxcclxuICogQHJldHVybnMge0FycmF5fSAtIEtleXMgdG8gZmlsdGVyLlxyXG4gKi9cclxuRmlsdGVyLnByb3RvdHlwZS5nZXRFeGNsdWRlZCA9IGZ1bmN0aW9uIChvcHRzKSB7XHJcbiAgaWYgKG9wdHMuYWNjZXNzID09PSAncHJpdmF0ZScpIHtcclxuICAgIHJldHVybiBbXVxyXG4gIH1cclxuXHJcbiAgbGV0IGVudHJ5ID0gb3B0cy5leGNsdWRlZE1hcCAmJiBvcHRzLm1vZGVsTmFtZSA/IG9wdHMuZXhjbHVkZWRNYXBbb3B0cy5tb2RlbE5hbWVdIDogbnVsbFxyXG5cclxuICBpZiAoIWVudHJ5KSB7XHJcbiAgICBlbnRyeSA9IF8uaXNQbGFpbk9iamVjdChvcHRzLmZpbHRlcmVkS2V5cykgPyB7XHJcbiAgICAgIHByaXZhdGU6IG9wdHMuZmlsdGVyZWRLZXlzLnByaXZhdGUgfHwgW10sXHJcbiAgICAgIHByb3RlY3RlZDogb3B0cy5maWx0ZXJlZEtleXMucHJvdGVjdGVkIHx8IFtdXHJcbiAgICB9IDoge1xyXG4gICAgICBwcml2YXRlOiBbXSxcclxuICAgICAgcHJvdGVjdGVkOiBbXVxyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgcmV0dXJuIG9wdHMuYWNjZXNzID09PSAncHJvdGVjdGVkJyA/IGVudHJ5LnByaXZhdGUgOiBlbnRyeS5wcml2YXRlLmNvbmNhdChlbnRyeS5wcm90ZWN0ZWQpXHJcbn1cclxuXHJcbkZpbHRlci5wcm90b3R5cGUuaXNFeGNsdWRlZCA9IGZ1bmN0aW9uIChmaWVsZCwgb3B0cykge1xyXG4gIGlmICghZmllbGQpIHtcclxuICAgIHJldHVybiBmYWxzZVxyXG4gIH1cclxuXHJcbiAgb3B0cyA9IF8uZGVmYXVsdHMob3B0cywge1xyXG4gICAgYWNjZXNzOiAncHVibGljJyxcclxuICAgIGV4Y2x1ZGVkTWFwOiB7fSxcclxuICAgIGZpbHRlcmVkS2V5czogdGhpcy5maWx0ZXJlZEtleXMsXHJcbiAgICBtb2RlbE5hbWU6IHRoaXMubW9kZWwubW9kZWxOYW1lXHJcbiAgfSlcclxuXHJcbiAgcmV0dXJuIHRoaXMuZ2V0RXhjbHVkZWQob3B0cykuaW5kZXhPZihmaWVsZCkgPj0gMFxyXG59XHJcblxyXG4vKipcclxuICogUmVtb3ZlcyBleGNsdWRlZCBrZXlzIGZyb20gYSBkb2N1bWVudC5cclxuICogQG1lbWJlcm9mIEZpbHRlclxyXG4gKiBAcGFyYW0ge09iamVjdH0gLSBTb3VyY2UgZG9jdW1lbnQuXHJcbiAqIEBwYXJhbSB7QXJyYXl9IC0gS2V5cyB0byBmaWx0ZXIuXHJcbiAqIEByZXR1cm5zIHtPYmplY3R9IC0gRmlsdGVyZWQgZG9jdW1lbnQuXHJcbiAqL1xyXG5GaWx0ZXIucHJvdG90eXBlLmZpbHRlckl0ZW0gPSBmdW5jdGlvbiAoaXRlbSwgZXhjbHVkZWQpIHtcclxuICBpZiAoXy5pc0FycmF5KGl0ZW0pKSB7XHJcbiAgICByZXR1cm4gaXRlbS5tYXAoKGkpID0+IHRoaXMuZmlsdGVySXRlbShpLCBleGNsdWRlZCkpXHJcbiAgfVxyXG5cclxuICBpZiAoaXRlbSAmJiBleGNsdWRlZCkge1xyXG4gICAgaWYgKF8uaXNGdW5jdGlvbihpdGVtLnRvT2JqZWN0KSkge1xyXG4gICAgICBpdGVtID0gaXRlbS50b09iamVjdCgpXHJcbiAgICB9XHJcblxyXG4gICAgZm9yIChsZXQgaSA9IDAsIGxlbmd0aCA9IGV4Y2x1ZGVkLmxlbmd0aDsgaSA8IGxlbmd0aDsgaSsrKSB7XHJcbiAgICAgIGlmIChleGNsdWRlZFtpXS5pbmRleE9mKCcuJykgPiAwKSB7XHJcbiAgICAgICAgd2VlZG91dChpdGVtLCBleGNsdWRlZFtpXSlcclxuICAgICAgfSBlbHNlIHtcclxuICAgICAgICBkZWxldGUgaXRlbVtleGNsdWRlZFtpXV1cclxuICAgICAgfVxyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgcmV0dXJuIGl0ZW1cclxufVxyXG5cclxuLyoqXHJcbiAqIFJlbW92ZXMgZXhjbHVkZWQga2V5cyBmcm9tIGEgZG9jdW1lbnQgd2l0aCBwb3B1bGF0ZWQgc3ViZG9jdW1lbnRzLlxyXG4gKiBAbWVtYmVyb2YgRmlsdGVyXHJcbiAqIEBwYXJhbSB7T2JqZWN0fSAtIFNvdXJjZSBkb2N1bWVudC5cclxuICogQHBhcmFtIHtPYmplY3R9IC0gS2V5cyB0byBmaWx0ZXIuXHJcbiAqIEBwYXJhbSB7QXJyYXl9IG9wdHMucG9wdWxhdGUgLSBQYXRocyB0byBwb3B1bGF0ZWQgc3ViZG9jdW1lbnRzLlxyXG4gKiBAcGFyYW0ge1N0cmluZ30gb3B0cy5hY2Nlc3MgLSBBY2Nlc3MgbGV2ZWwgKHByaXZhdGUsIHByb3RlY3RlZCBvciBwdWJsaWMpLlxyXG4gKiBAcGFyYW0ge09iamVjdH0gb3B0cy5leGNsdWRlZE1hcCB7fSAtIEZpbHRlcmVkIGtleXMgZm9yIHJlbGF0ZWQgbW9kZWxzXHJcbiAqIEByZXR1cm5zIHtPYmplY3R9IC0gRmlsdGVyZWQgZG9jdW1lbnQuXHJcbiAqL1xyXG5GaWx0ZXIucHJvdG90eXBlLmZpbHRlclBvcHVsYXRlZEl0ZW0gPSBmdW5jdGlvbiAoaXRlbSwgb3B0cykge1xyXG4gIGlmIChfLmlzQXJyYXkoaXRlbSkpIHtcclxuICAgIHJldHVybiBpdGVtLm1hcCgoaSkgPT4gdGhpcy5maWx0ZXJQb3B1bGF0ZWRJdGVtKGksIG9wdHMpKVxyXG4gIH1cclxuXHJcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBvcHRzLnBvcHVsYXRlLmxlbmd0aDsgaSsrKSB7XHJcbiAgICBpZiAoIW9wdHMucG9wdWxhdGVbaV0ucGF0aCkge1xyXG4gICAgICBjb250aW51ZVxyXG4gICAgfVxyXG5cclxuICAgIGNvbnN0IGV4Y2x1ZGVkID0gdGhpcy5nZXRFeGNsdWRlZCh7XHJcbiAgICAgIGFjY2Vzczogb3B0cy5hY2Nlc3MsXHJcbiAgICAgIGV4Y2x1ZGVkTWFwOiBvcHRzLmV4Y2x1ZGVkTWFwLFxyXG4gICAgICBtb2RlbE5hbWU6IGRldGVjdGl2ZSh0aGlzLm1vZGVsLCBvcHRzLnBvcHVsYXRlW2ldLnBhdGgpXHJcbiAgICB9KVxyXG5cclxuICAgIGlmIChfLmhhcyhpdGVtLCBvcHRzLnBvcHVsYXRlW2ldLnBhdGgpKSB7XHJcbiAgICAgIHRoaXMuZmlsdGVySXRlbShfLmdldChpdGVtLCBvcHRzLnBvcHVsYXRlW2ldLnBhdGgpLCBleGNsdWRlZClcclxuICAgIH0gZWxzZSB7XHJcbiAgICAgIGNvbnN0IHBhdGhUb0FycmF5ID0gb3B0cy5wb3B1bGF0ZVtpXS5wYXRoLnNwbGl0KCcuJykuc2xpY2UoMCwgLTEpLmpvaW4oJy4nKVxyXG5cclxuICAgICAgaWYgKF8uaGFzKGl0ZW0sIHBhdGhUb0FycmF5KSkge1xyXG4gICAgICAgIGNvbnN0IGFycmF5ID0gXy5nZXQoaXRlbSwgcGF0aFRvQXJyYXkpXHJcbiAgICAgICAgY29uc3QgcGF0aFRvT2JqZWN0ID0gb3B0cy5wb3B1bGF0ZVtpXS5wYXRoLnNwbGl0KCcuJykuc2xpY2UoLTEpLmpvaW4oJy4nKVxyXG5cclxuICAgICAgICB0aGlzLmZpbHRlckl0ZW0oXy5tYXAoYXJyYXksIHBhdGhUb09iamVjdCksIGV4Y2x1ZGVkKVxyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICByZXR1cm4gaXRlbVxyXG59XHJcblxyXG4vKipcclxuICogUmVtb3ZlcyBleGNsdWRlZCBrZXlzIGZyb20gYSBkb2N1bWVudC5cclxuICogQG1lbWJlcm9mIEZpbHRlclxyXG4gKiBAYWNjZXNzIHB1YmxpY1xyXG4gKiBAcGFyYW0ge09iamVjdH0gLSBTb3VyY2UgZG9jdW1lbnQuXHJcbiAqIEBwYXJhbSB7T2JqZWN0fSAtIE9wdGlvbnMuXHJcbiAqIEBwYXJhbSB7U3RyaW5nfSBvcHRzLmFjY2VzcyB7cHVibGljfSAtIEFjY2VzcyBsZXZlbCAocHJpdmF0ZSwgcHJvdGVjdGVkIG9yIHB1YmxpYykuXHJcbiAqIEBwYXJhbSB7T2JqZWN0fSBvcHRzLmV4Y2x1ZGVkTWFwIHt9IC0gRmlsdGVyZWQga2V5cyBmb3IgcmVsYXRlZCBtb2RlbHNcclxuICogQHBhcmFtIHtBcnJheX0gb3B0cy5wb3B1bGF0ZSAtIFBhdGhzIHRvIHBvcHVsYXRlZCBzdWJkb2N1bWVudHMuXHJcbiAqIEByZXR1cm5zIHtPYmplY3R9IC0gRmlsdGVyZWQgZG9jdW1lbnQuXHJcbiAqL1xyXG5GaWx0ZXIucHJvdG90eXBlLmZpbHRlck9iamVjdCA9IGZ1bmN0aW9uIChyZXNvdXJjZSwgb3B0cyA9IHt9KSB7XHJcbiAgb3B0cyA9IF8uZGVmYXVsdHMob3B0cywge1xyXG4gICAgYWNjZXNzOiAncHVibGljJyxcclxuICAgIGV4Y2x1ZGVkTWFwOiB7fSxcclxuICAgIGZpbHRlcmVkS2V5czogdGhpcy5maWx0ZXJlZEtleXMsXHJcbiAgICBtb2RlbE5hbWU6IHRoaXMubW9kZWwubW9kZWxOYW1lXHJcbiAgfSlcclxuXHJcbiAgbGV0IGZpbHRlcmVkID0gdGhpcy5maWx0ZXJJdGVtKHJlc291cmNlLCB0aGlzLmdldEV4Y2x1ZGVkKG9wdHMpKVxyXG5cclxuICBpZiAob3B0cy5wb3B1bGF0ZSkge1xyXG4gICAgdGhpcy5maWx0ZXJQb3B1bGF0ZWRJdGVtKGZpbHRlcmVkLCBvcHRzKVxyXG4gIH1cclxuXHJcbiAgcmV0dXJuIGZpbHRlcmVkXHJcbn1cclxuXHJcbm1vZHVsZS5leHBvcnRzID0gRmlsdGVyXHJcbiJdfQ==
+//# sourceMappingURL=resource_filter.js.map
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 22:13:52 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
+
+
+</div>
+</div>
