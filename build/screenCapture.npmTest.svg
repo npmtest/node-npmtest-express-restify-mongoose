@@ -7,34 +7,34 @@
 <tspan x="10" y="74">&gt; (set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)</tspan>
 <tspan x="10" y="90"></tspan>
 <tspan x="10" y="106"></tspan>
-<tspan x="10" y="122">[MODE_BUILD=npmTest] - 2017-04-11T22:14:24Z - npm-testing /home/travis/build/npmtest/node-npmtes\</tspan>
+<tspan x="10" y="122">[MODE_BUILD=npmTest] - 2017-04-11T22:16:39Z - npm-testing /home/travis/build/npmtest/node-npmtes\</tspan>
 <tspan x="10" y="138">t-express-restify-mongoose</tspan>
 <tspan x="10" y="154"></tspan>
 <tspan x="10" y="170">merging file:///home/travis/build/npmtest/node-npmtest-express-restify-mongoose/tmp/build/test-r\</tspan>
 <tspan x="10" y="186">eport.json to test-report</tspan>
-<tspan x="10" y="202">&gt; server listening on http-port 37694</tspan>
+<tspan x="10" y="202">&gt; server listening on http-port 43630</tspan>
 <tspan x="10" y="218">[node test-case 1 of 7 passed] - testCase_buildApidoc_default</tspan>
 <tspan x="10" y="234">[node test-case 2 of 7 passed] - testCase_buildLib_default</tspan>
 <tspan x="10" y="250">[node test-case 3 of 7 passed] - testCase_buildReadme_default</tspan>
 <tspan x="10" y="266">[node test-case 4 of 7 passed] - testCase_buildTest_default</tspan>
 <tspan x="10" y="282"></tspan>
 <tspan x="10" y="298">browserTest - created electron entry-page /home/travis/build/npmtest/node-npmtest-express-restif\</tspan>
-<tspan x="10" y="314">y-mongoose/tmp/electron.15b5f15091f0.dd5c311419976.html</tspan>
+<tspan x="10" y="314">y-mongoose/tmp/electron.15b5f17183a0.1d71db223a772.html</tspan>
 <tspan x="10" y="330"></tspan>
 <tspan x="10" y="346">[node test-case 5 of 7 passed] - testCase_buildCustomOrg_default</tspan>
 <tspan x="10" y="362">Xlib:  extension "RANDR" missing on display ":99.0".</tspan>
 <tspan x="10" y="378">merging file:///home/travis/build/npmtest/node-npmtest-express-restify-mongoose/tmp/build/test-r\</tspan>
 <tspan x="10" y="394">eport.json to test-report</tspan>
 <tspan x="10" y="410">Xlib:  extension "RANDR" missing on display ":99.0".</tspan>
-<tspan x="10" y="426">[5125:0411/221426:WARNING:audio_manager.cc(314)] Multiple instances of AudioManager detected</tspan>
-<tspan x="10" y="442">[5125:0411/221426:WARNING:audio_manager.cc(275)] Multiple instances of AudioManager detected</tspan>
-<tspan x="10" y="458">[5141:0411/221426:ERROR:sandbox_linux.cc(343)] InitializeSandbox() called with multiple threads \</tspan>
+<tspan x="10" y="426">[6586:0411/221641:WARNING:audio_manager.cc(314)] Multiple instances of AudioManager detected</tspan>
+<tspan x="10" y="442">[6586:0411/221641:WARNING:audio_manager.cc(275)] Multiple instances of AudioManager detected</tspan>
+<tspan x="10" y="458">[6605:0411/221641:ERROR:sandbox_linux.cc(343)] InitializeSandbox() called with multiple threads \</tspan>
 <tspan x="10" y="474">in process gpu-process. </tspan>
-<tspan x="10" y="490">[5125:0411/221426:ERROR:browser_gpu_channel_host_factory.cc(131)] Failed to create channel.</tspan>
+<tspan x="10" y="490">[6586:0411/221641:ERROR:browser_gpu_channel_host_factory.cc(131)] Failed to create channel.</tspan>
 <tspan x="10" y="506"></tspan>
-<tspan x="10" y="522">browserTest - opened url http://127.0.0.1:37694?modeTest=1</tspan>
+<tspan x="10" y="522">browserTest - opened url http://127.0.0.1:43630?modeTest=1</tspan>
 <tspan x="10" y="538"></tspan>
-<tspan x="10" y="554">&gt; server listening on http-port 54967</tspan>
+<tspan x="10" y="554">&gt; server listening on http-port 65475</tspan>
 <tspan x="10" y="570">[node test-case 6 of 7 passed] - testCase_buildApp_default</tspan>
 <tspan x="10" y="586"></tspan>
 <tspan x="10" y="602">browserTest - created screenCapture file:///home/travis/build/npmtest/node-npmtest-express-resti\</tspan>
@@ -43,7 +43,7 @@
 <tspan x="10" y="650">browserTest - created screenCapture file:///home/travis/build/npmtest/node-npmtest-express-resti\</tspan>
 <tspan x="10" y="666">fy-mongoose/tmp/build/screenCapture.npmTest.browser.%2F.html</tspan>
 <tspan x="10" y="682"></tspan>
-<tspan x="10" y="698">browserTest - exit-code 0 - http://127.0.0.1:37694?modeTest=1</tspan>
+<tspan x="10" y="698">browserTest - exit-code 0 - http://127.0.0.1:43630?modeTest=1</tspan>
 <tspan x="10" y="714"></tspan>
 <tspan x="10" y="730"></tspan>
 <tspan x="10" y="746">browserTest - merging test-report from /home/travis/build/npmtest/node-npmtest-express-restify-m\</tspan>
@@ -55,12 +55,12 @@
 <tspan x="10" y="842"></tspan>
 <tspan x="10" y="858">-------------------------------------------------------</tspan>
 <tspan x="10" y="874">| test-report - buildCustomOrg - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.3\</tspan>
-<tspan x="10" y="890">6 (KHTML, like Gecko) Chrome/53.0.2785.143 Electron/1.4.15 Safari/537.36 - 2017-04-11T22:13:36.9\</tspan>
-<tspan x="10" y="906">47Z</tspan>
-<tspan x="10" y="922">|   65308 ms            0 failed        7 passed      |</tspan>
+<tspan x="10" y="890">6 (KHTML, like Gecko) Chrome/53.0.2785.143 Electron/1.4.15 Safari/537.36 - 2017-04-11T22:15:44.0\</tspan>
+<tspan x="10" y="906">26Z</tspan>
+<tspan x="10" y="922">|   73169 ms            0 failed        7 passed      |</tspan>
 <tspan x="10" y="938">-------------------------------------------------------</tspan>
-<tspan x="10" y="954">| test-report - buildCustomOrg - node - linux v6.10.2 - 2017-04-11T22:13:34.856Z</tspan>
-<tspan x="10" y="970">|   16492 ms            0 failed        7 passed      |</tspan>
+<tspan x="10" y="954">| test-report - buildCustomOrg - node - linux v6.10.2 - 2017-04-11T22:15:42.080Z</tspan>
+<tspan x="10" y="970">|   16245 ms            0 failed        7 passed      |</tspan>
 <tspan x="10" y="986">-------------------------------------------------------</tspan>
 <tspan x="10" y="1002"></tspan>
 <tspan x="10" y="1018">created test-report file:///home/travis/build/npmtest/node-npmtest-express-restify-mongoose/tmp/\</tspan>
@@ -70,6 +70,6 @@
 <tspan x="10" y="1082">npmTest - 0 failed tests</tspan>
 <tspan x="10" y="1098"></tspan>
 <tspan x="10" y="1114"></tspan>
-<tspan x="10" y="1130">[MODE_BUILD=npmTest] - 2017-04-11T22:14:43Z - EXIT_CODE - 0</tspan>
+<tspan x="10" y="1130">[MODE_BUILD=npmTest] - 2017-04-11T22:16:58Z - EXIT_CODE - 0</tspan>
 </text>
 </svg>
