@@ -1,7 +1,7 @@
 # test coverage for  [express-restify-mongoose (v4.1.3)](http://florianholzapfel.github.io/express-restify-mongoose/)  [![npm package](https://img.shields.io/npm/v/npmtest-express-restify-mongoose.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-express-restify-mongoose) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-express-restify-mongoose.svg)](https://travis-ci.org/npmtest/node-npmtest-express-restify-mongoose)
 #### Easily create a flexible REST interface for mongoose models
 
-[![NPM](https://nodei.co/npm/express-restify-mongoose.png?downloads=true)](https://www.npmjs.com/package/express-restify-mongoose)
+[![NPM](https://nodei.co/npm/express-restify-mongoose.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/express-restify-mongoose)
 
 | git-branch : | [alpha](https://github.com/npmtest/node-npmtest-express-restify-mongoose/tree/alpha)|
 |--:|:--|
@@ -9,11 +9,17 @@
 | test-report : | [![test-report](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/test-report.badge.svg)](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/test-report.html)|
 | build-artifacts : | [![build-artifacts](https://npmtest.github.io/node-npmtest-express-restify-mongoose/glyphicons_144_folder_open.png)](https://github.com/npmtest/node-npmtest-express-restify-mongoose/tree/gh-pages/build)|
 
-[![istanbul-coverage](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/screenCapture.buildCustomOrg.browser.coverage.html.png)](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/coverage.html/index.html)
+- [https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/coverage.html/index.html](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/coverage.html/index.html)
 
-[![test-report](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/screenCapture.buildCustomOrg.browser.%252Fhome%252Ftravis%252Fbuild%252Fnpmtest%252Fnode-npmtest-express-restify-mongoose%252Ftmp%252Fbuild%252Ftest-report.html.png)](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/test-report.html)
+[![istanbul-coverage](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png)](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/coverage.html/index.html)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-express-restify-mongoose/build/screenCapture.buildApidoc.browser.%252Fhome%252Ftravis%252Fbuild%252Fnpmdoc%252Fnode-npmdoc-express-restify-mongoose%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-express-restify-mongoose/build/apidoc.html)
+- [https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/test-report.html](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/test-report.html)
+
+[![test-report](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/test-report.html)
+
+- [https://npmdoc.github.io/node-npmdoc-express-restify-mongoose/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-express-restify-mongoose/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-express-restify-mongoose/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-express-restify-mongoose/build/apidoc.html)
 
 ![npmPackageListing](https://npmtest.github.io/node-npmtest-express-restify-mongoose/build/screenCapture.npmPackageListing.svg)
 
@@ -27,8 +33,7 @@
 
 {
     "author": {
-        "name": "Florian Holzapfel",
-        "email": "flo.holzapfel@gmail.com"
+        "name": "Florian Holzapfel"
     },
     "bugs": {
         "url": "https://github.com/florianholzapfel/express-restify-mongoose/issues"
@@ -87,12 +92,10 @@
     "main": "./lib/express-restify-mongoose",
     "maintainers": [
         {
-            "name": "fholzapfel",
-            "email": "fholzapfel@gmx.de"
+            "name": "fholzapfel"
         },
         {
-            "name": "zertz",
-            "email": "pierluc@outlook.com"
+            "name": "zertz"
         }
     ],
     "name": "express-restify-mongoose",
@@ -100,7 +103,6 @@
     "peerDependencies": {
         "mongoose": "^4.0.0"
     },
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git://github.com/florianholzapfel/express-restify-mongoose.git"
