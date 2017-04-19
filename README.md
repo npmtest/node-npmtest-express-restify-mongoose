@@ -1,4 +1,7 @@
-# test coverage for  [express-restify-mongoose (v4.1.3)](http://florianholzapfel.github.io/express-restify-mongoose/)  [![npm package](https://img.shields.io/npm/v/npmtest-express-restify-mongoose.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-express-restify-mongoose) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-express-restify-mongoose.svg)](https://travis-ci.org/npmtest/node-npmtest-express-restify-mongoose)
+# npmtest-express-restify-mongoose
+
+#### basic test coverage for  [express-restify-mongoose (v4.1.3)](http://florianholzapfel.github.io/express-restify-mongoose/)  [![npm package](https://img.shields.io/npm/v/npmtest-express-restify-mongoose.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-express-restify-mongoose) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-express-restify-mongoose.svg)](https://travis-ci.org/npmtest/node-npmtest-express-restify-mongoose)
+
 #### Easily create a flexible REST interface for mongoose models
 
 [![NPM](https://nodei.co/npm/express-restify-mongoose.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/express-restify-mongoose)
